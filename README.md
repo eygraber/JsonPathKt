@@ -53,14 +53,14 @@ JsonPathKt is available at the Maven Central repository.
 <dependency>
   <groupId>com.nfeld.jsonpathkt</groupId>
   <artifactId>jsonpathkt</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 **Gradle**
 ```gradle
 dependencies {
-    implementation 'com.nfeld.jsonpathkt:jsonpathkt:2.0.1'
+    implementation("com.nfeld.jsonpathkt:jsonpathkt:2.0.0")
 }
 ```
 
@@ -168,5 +168,3 @@ You can run these tests locally with `./runBenchmarks.sh`
 JsonPathKt doesn't provide a caching layer anymore. If caching is desired, there are multiple
 KMP caching libraries that can be used to wrap JsonPathKt.
 ```
-
-[![Analytics](https://ga-beacon.appspot.com/UA-116910991-3/jsonpathlite/index)](https://github.com/igrigorik/ga-beacon)
