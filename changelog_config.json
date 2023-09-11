@@ -1,8 +1,12 @@
 {
   "categories": [
     {
-      "title": "## 🚀 Enhancements",
+      "title": "## ✨ Enhancements",
       "labels": ["enhancement"]
+    },
+    {
+      "title": "## 🚀 Features",
+      "labels": ["feature"]
     },
     {
       "title": "## ⚙️ Chores",
@@ -21,7 +25,7 @@
       "labels": ["documentation"]
     },
     {
-      "title": "## \uD83D\uDCE6 Dependencies",
+      "title": "\uD83D\uDCE6 Dependencies",
       "labels": ["dependencies"]
     },
     {
@@ -34,7 +38,7 @@
     }
   ],
   "ignore_labels": [
-    "duplicate", "good first issue", "help wanted", "invalid", "question", "wontfix", "skip release notes", "hold"
+    "duplicate", "good first issue", "help wanted", "invalid", "question", "wontfix"
   ],
   "sort": "ASC",
   "template": "${{CHANGELOG}}",

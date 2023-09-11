@@ -1,18 +1,35 @@
+pluginManagement {
+  repositories {
+    mavenCentral()
+
+    gradlePluginPortal()
+  }
+}
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+dependencyResolutionManagement {
+  @Suppress("UnstableApiUsage")
+  repositories {
+    mavenCentral()
+  }
+}
+
 plugins {
-    id("com.gradle.enterprise") version "3.10.3"
+  id("com.eygraber.conventions.settings") version "0.0.49"
+  id("com.gradle.enterprise") version "3.14.1"
 }
 
 rootProject.name = "jsonpathkt"
 
-val publishBuildScan = providers.gradleProperty("publishBuildScan")
-
 gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-
-        if (publishBuildScan.isPresent) {
-            publishAlways()
-        }
+  buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    if (System.getenv("CI") != null) {
+      termsOfServiceAgree = "yes"
+      publishAlways()
     }
+  }
 }
+
+include(":jsonpath")

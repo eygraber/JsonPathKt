@@ -1,0 +1,4 @@
+# noinspection EditorConfigKeyCorrectness
+[*.{kt,kts}]
+ktlint_standard_binary-expression-wrapping = disabled
+ktlint_standard_max-line-length = disabled

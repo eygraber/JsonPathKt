@@ -1,6 +1,6 @@
 # JsonPathKt
 [![Build Status](https://travis-ci.com/codeniko/JsonPathKt.svg?branch=master)](https://travis-ci.com/codeniko/JsonPathKt)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.nfeld.jsonpathkt/jsonpathkt/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.nfeld.jsonpathkt/jsonpathkt)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt)
 [![codecov](https://codecov.io/gh/codeniko/JsonPathKt/branch/master/graph/badge.svg)](https://codecov.io/gh/codeniko/JsonPathKt)
 
 **A lighter and more efficient implementation of JsonPath in Kotlin.**
@@ -42,8 +42,8 @@ jsonpath.readFromJson<List<Map<String, String>>>(json1)
 jsonpath.readFromJson<List<Map<String, String>>>(json2)
 ```
 
-*JsonPathKt uses [Jackson](https://github.com/FasterXML/jackson) to deserialize JSON strings. `JsonPath.parse` returns a Jackson 
-`JsonNode` object, so if you've already deserialized, you can also `read` the jsonpath value directly.*
+*JsonPathKt uses [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) to deserialize JSON strings. `JsonPath.parse` returns a 
+`JsonElement` object, so if you've already deserialized, you can also `read` the jsonpath value directly.*
 
 
 ## Getting started
@@ -67,14 +67,14 @@ dependencies {
 
 ## Accessor operators
 
-| Operator                  | Description                                                        |
-| :------------------------ | :----------------------------------------------------------------- |
-| `$`                       | The root element to query. This begins all path expressions.       |
-| `..`                      | Deep scan for values behind followed key value accessor            |
-| `.<name>`                 | Dot-notated key value accessor for JSON objects                    |
-| `['<name>' (, '<name>')]` | Bracket-notated key value accessor for JSON objects, comma-delimited|
-| `[<number> (, <number>)]` | JSON array accessor for index or comma-delimited indices           |
-| `[start:end]`             | JSON array range accessor from start (inclusive) to end (exclusive)|
+| Operator                  | Description                                                          |
+|:--------------------------|:---------------------------------------------------------------------|
+| `$`                       | The root element to query. This begins all path expressions.         |
+| `..`                      | Deep scan for values behind followed key value accessor              |
+| `.<name>`                 | Dot-notated key value accessor for JSON objects                      |
+| `['<name>' (, '<name>')]` | Bracket-notated key value accessor for JSON objects, comma-delimited |
+| `[<number> (, <number>)]` | JSON array accessor for index or comma-delimited indices             |
+| `[start:end]`             | JSON array range accessor from start (inclusive) to end (exclusive)  |
 
 ## Path expression examples
 JsonPathKt expressions can use any combination of dot–notation and bracket–notation operators to access JSON values. For examples, these all evaluate to the same result:
@@ -110,24 +110,24 @@ Given the JSON:
 }
 ```
 
-| JsonPath | Result |
-| :------- | :----- |
-| $.family                  |  The family object  |
-| $.family.children         |  The children array  |
-| $.family['children']      |  The children array  |
-| $.family.children[2]      |  The second child object  |
-| $.family.children[-1]     |  The last child object  |
-| $.family.children[-3]     |  The 3rd to last child object  |
-| $.family.children[1:3]    |  The 2nd and 3rd children objects |
-| $.family.children[:3]     |  The first three children |
-| $.family.children[:-1]    |  The first three children |
-| $.family.children[2:]     |  The last two children  |
-| $.family.children[-2:]    |  The last two children  |
-| $..name                   |  All names  |
-| $.family..name            |  All names nested within family object  |
-| $.family.children[:3]..age     |  The ages of first three children |
-| $..['name','nickname']    |  Names & nicknames (if any) of all children |
-| $.family.children[0].*    |  Names & age values of first child |
+| JsonPath                   | Result                                     |
+|:---------------------------|:-------------------------------------------|
+| $.family                   | The family object                          |
+| $.family.children          | The children array                         |
+| $.family['children']       | The children array                         |
+| $.family.children[2]       | The second child object                    |
+| $.family.children[-1]      | The last child object                      |
+| $.family.children[-3]      | The 3rd to last child object               |
+| $.family.children[1:3]     | The 2nd and 3rd children objects           |
+| $.family.children[:3]      | The first three children                   |
+| $.family.children[:-1]     | The first three children                   |
+| $.family.children[2:]      | The last two children                      |
+| $.family.children[-2:]     | The last two children                      |
+| $..name                    | All names                                  |
+| $.family..name             | All names nested within family object      |
+| $.family.children[:3]..age | The ages of first three children           |
+| $..['name','nickname']     | Names & nicknames (if any) of all children |
+| $.family.children[0].*     | Names & age values of first child          |
 
 ## Benchmarks
 These are benchmark tests of JsonPathKt against Jayway's JsonPath implementation. Results for each test is the average of 
@@ -136,46 +136,38 @@ You can run these tests locally with `./runBenchmarks.sh`
 
 **Evaluating/reading path against large JSON**
 
-| Path Tested | JsonPathKt (ms) | JsonPath (ms) |
-| :---------- | :------ | :----- |
-|  $[0].friends[1].other.a.b['c']  |  88 ms *(35 ms w/ cache)* |  144 ms *(79 ms w/ cache)*  |
-|  $[2]._id  |  34 ms *(14 ms w/ cache)* |  48 ms *(28 ms w/ cache)*  |
-|  $..name  |  82 ms *(84 ms w/ cache)* |  450 ms *(572 ms w/ cache)*  |
-|  $..['email','name']  |  116 ms *(108 ms w/ cache)* |  479 ms *(522 ms w/ cache)*  |
-|  $..[1]  |  203 ms *(202 ms w/ cache)* |  401 ms *(423 ms w/ cache)*  |
-|  $..[:2]  |  352 ms *(346 ms w/ cache)* |  442 ms *(437 ms w/ cache)*  |
-|  $..[2:]  |  426 ms *(419 ms w/ cache)* |  476 ms *(470 ms w/ cache)*  |
-|  $[0]['tags'][-3]  |  67 ms *(17 ms w/ cache)* |  83 ms *(37 ms w/ cache)*  |
-|  $[0]['tags'][:3]  |  90 ms *(36 ms w/ cache)* |  103 ms *(55 ms w/ cache)*  |
-|  $[0]['tags'][3:]  |  97 ms *(48 ms w/ cache)* |  112 ms *(65 ms w/ cache)*  |
-|  $[0]['tags'][3:5]  |  85 ms *(29 ms w/ cache)* |  101 ms *(50 ms w/ cache)*  |
-|  $[0]['tags'][0,3,5]  |  95 ms *(36 ms w/ cache)* |  122 ms *(52 ms w/ cache)*  |
-|  $[0]['latitude','longitude','isActive']  |  97 ms *(36 ms w/ cache)* |  124 ms *(59 ms w/ cache)*  |
-|  $[0]['tags'].*  |  88 ms *(47 ms w/ cache)* |  121 ms *(86 ms w/ cache)*  |
-|  $[0]..*  |  828 ms *(796 ms w/ cache)* |  797 ms *(830 ms w/ cache)*  |
+| Path Tested                             | JsonPathKt (ms) | JsonPath (ms) |
+|:----------------------------------------|:----------------|:--------------|
+| $[0].friends[1].other.a.b['c']          | 31 ms           | 81 ms         |
+| $[2]._id                                | 11 ms           | 28 ms         |
+| $..name                                 | 42 ms           | 472 ms        |
+| $..['email','name']                     | 55 ms           | 479 ms        |
+| $..[1]                                  | 40 ms           | 412 ms        |
+| $..[:2]                                 | 47 ms           | 462 ms        |
+| $..[2:]                                 | 69 ms           | 443 ms        |
+| $[0]['tags'][-3]                        | 22 ms           | 45 ms         |
+| $[0]['tags'][:3]                        | 29 ms           | 62 ms         |
+| $[0]['tags'][3:]                        | 30 ms           | 68 ms         |
+| $[0]['tags'][3:5]                       | 30 ms           | 62 ms         |
+| $[0]['tags'][0,3,5]                     | 26 ms           | 63 ms         |
+| $[0]['latitude','longitude','isActive'] | 31 ms           | 96 ms         |
+| $[0]['tags'].*                          | 17 ms           | 73 ms         |
+| $[0]..*                                 | 85 ms           | 597 ms        |
 
 
 **Compiling JsonPath strings to internal tokens**
 
-| Path size | JsonPathKt | JsonPath |
-| :-------- | :----------- | :------- |
-|  7 chars, 1 tokens  |  14 ms *(2 ms w/ cache)* |  9 ms *(9 ms w/ cache)* |
-|  16 chars, 3 tokens  |  26 ms *(2 ms w/ cache)* |  25 ms *(25 ms w/ cache)* |
-|  30 chars, 7 tokens  |  55 ms *(2 ms w/ cache)* |  63 ms *(57 ms w/ cache)* |
-|  65 chars, 16 tokens  |  114 ms *(2 ms w/ cache)* |  157 ms *(142 ms w/ cache)* |
-|  88 chars, 19 tokens  |  205 ms *(2 ms w/ cache)* |  234 ms *(204 ms w/ cache)* |
+| Path size           | JsonPathKt | JsonPath |
+|:--------------------|:-----------|:---------|
+| 7 chars, 1 tokens   | 5 ms       | 5 ms     |
+| 16 chars, 3 tokens  | 11 ms      | 13 ms    |
+| 30 chars, 7 tokens  | 21 ms      | 32 ms    |
+| 65 chars, 16 tokens | 48 ms      | 69 ms    |
+| 88 chars, 19 tokens | 66 ms      | 103 ms   |
 
 # Cache
-JsonPathKt uses an LRU cache by default to cache compiled JsonPath tokens. If you don't want to use the cache, you can disable it or set the CacheProvider to use your own implementation of the Cache interface.
-```kotlin
-// Disable cache
-CacheProvider.setCache(null)
-
-// Implement your own cache
-CacheProvider.setCache(object : Cache {
-    override fun get(path: String): JsonPath? { ... }
-    override fun put(path: String, jsonPath: JsonPath) { ... }
-})
+JsonPathKt doesn't provide a caching layer anymore. If caching is desired, there are multiple
+KMP caching libraries that can be used to wrap JsonPathKt.
 ```
 
 [![Analytics](https://ga-beacon.appspot.com/UA-116910991-3/jsonpathlite/index)](https://github.com/igrigorik/ga-beacon)
