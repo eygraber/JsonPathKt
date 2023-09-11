@@ -19,6 +19,6 @@ deleteRootBuildDirWhenCleaning()
 
 gradleConventionsDefaults {
   kotlin {
-    jvmTargetVersion = JvmTarget.JVM_11
+    jvmTargetVersion = JvmTarget.JVM_1_8
   }
 }
