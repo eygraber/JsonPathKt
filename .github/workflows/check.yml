@@ -2,8 +2,6 @@ name: Check
 
 on:
   pull_request:
-  push:
-    branches: [master]
 
 jobs:
   danger:
@@ -36,7 +34,7 @@ jobs:
           gradle-version: wrapper
 
       - name: Run gradle check
-        run: ./gradlew check
+        run: IS_JACOCO_ENABLED=true ./gradlew check
 
       - name: Run ktlint and detekt
         run: ./format --no-format && ./gradlew detektAppleMain detektJvmMain detektJsMain detektMetadataMain

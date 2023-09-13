@@ -54,6 +54,8 @@ kotlin {
   }
 }
 
+val isJacocoEnabled = findProperty("IS_JACOCO_ENABLED") == "true"
+
 tasks.withType<Test> {
   testLogging {
     // show test results for following events
@@ -87,6 +89,8 @@ tasks.withType<Test> {
   )
 
   configure<JacocoTaskExtension> {
+    isEnabled = isJacocoEnabled
+
     setDestinationFile(
       layout.buildDirectory.file("jacoco/junitPlatformTest.exec").map { it.asFile },
     )
@@ -108,6 +112,8 @@ jacoco {
 }
 
 tasks.jacocoTestReport.configure {
+  enabled = isJacocoEnabled
+
   dependsOn(tasks.named("jvmTest"))
 
   val buildDirPath = layout.buildDirectory.asFile.get().absolutePath
@@ -128,6 +134,8 @@ tasks.jacocoTestReport.configure {
 }
 
 tasks.jacocoTestCoverageVerification {
+  enabled = isJacocoEnabled
+
   dependsOn(tasks.named("jvmTest"))
   violationRules {
     rule {
@@ -140,9 +148,11 @@ tasks.jacocoTestCoverageVerification {
   }
 }
 
-tasks.check.configure {
-  dependsOn(tasks.jacocoTestReport)
-  dependsOn(tasks.jacocoTestCoverageVerification)
+if (isJacocoEnabled) {
+  tasks.check.configure {
+    dependsOn(tasks.jacocoTestReport)
+    dependsOn(tasks.jacocoTestCoverageVerification)
+  }
 }
 
 fun NamedDomainObjectContainer<KotlinJvmCompilation>.registerBenchmarkCompilation() {
