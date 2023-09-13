@@ -2,8 +2,12 @@ package com.nfeld.jsonpathkt
 
 import com.jayway.jsonpath.Configuration
 import com.jayway.jsonpath.spi.json.JacksonJsonProvider
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestMethodOrder
 import com.jayway.jsonpath.JsonPath as JaywayJsonPath
 import com.jayway.jsonpath.spi.cache.CacheProvider as JaywayCacheProvider
 import com.jayway.jsonpath.spi.cache.NOOPCache as JaywayNOOPCache
@@ -43,8 +47,8 @@ private fun benchmarkJsonPathKt(
   callsPerRun: Int = DEFAULT_CALLS_PER_RUN,
   runs: Int = DEFAULT_RUNS,
 ): Long {
-  val json = JsonPath.parse(LARGE_JSON)!! // pre-parse json
-  return benchmark(callsPerRun, runs) { JsonPath(path).read(json) }
+  val json = Json.parseToJsonElement(LARGE_JSON) // pre-parse json
+  return benchmark(callsPerRun, runs) { json.read(path) }
 }
 
 private fun benchmarkJaywayJsonPath(
@@ -72,6 +76,7 @@ private fun runBenchmarksAndPrintResults(
   }
 }
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class BenchmarkTest {
   companion object {
     @BeforeAll
@@ -86,19 +91,92 @@ class BenchmarkTest {
   }
 
   @Test
+  @Order(1)
   fun benchmarkDeepPath() {
     runBenchmarksAndPrintResults("$[0].friends[1].other.a.b['c']")
   }
 
   @Test
+  @Order(2)
   fun benchmarkShallowPath() {
     runBenchmarksAndPrintResults("$[2]._id")
   }
 
   @Test
+  @Order(3)
+  fun benchmarkDeepScans() {
+    val callsPerRun = 20000
+    val runs = 10
+    runBenchmarksAndPrintResults("$..name", callsPerRun, runs)
+    runBenchmarksAndPrintResults("$..['email','name']", callsPerRun, runs)
+    runBenchmarksAndPrintResults("$..[1]", callsPerRun, runs)
+  }
+
+  @Test
+  @Order(4)
+  fun benchmarkDeepScanRanges() {
+    val callsPerRun = 20000
+    val runs = 10
+    runBenchmarksAndPrintResults("$..[:2]", callsPerRun, runs)
+    runBenchmarksAndPrintResults("$..[2:]", callsPerRun, runs)
+
+    // jayway jsonpath gives empty response for this so not valid comparison
+    // runBenchmarksAndPrintResults("$..[1:-1]", callsPerRun, runs)
+  }
+
+  @Test
+  @Order(5)
+  fun benchmarkArrayAccessFromEndElement() {
+    runBenchmarksAndPrintResults("$[0]['tags'][-3]")
+  }
+
+  @Test
+  @Order(6)
+  fun benchmarkArrayRangeFromStart() {
+    runBenchmarksAndPrintResults("$[0]['tags'][:3]")
+  }
+
+  @Test
+  @Order(7)
+  fun benchmarkArrayRangeToEndElement() {
+    runBenchmarksAndPrintResults("$[0]['tags'][3:]")
+  }
+
+  @Test
+  @Order(8)
+  fun benchmarkArrayRange() {
+    runBenchmarksAndPrintResults("$[0]['tags'][3:5]")
+  }
+
+  @Test
+  @Order(9)
+  fun benchmarkMultiArrayAccess() {
+    runBenchmarksAndPrintResults("$[0]['tags'][0,3,5]")
+  }
+
+  @Test
+  @Order(10)
+  fun benchmarkMultiObjectAccess() {
+    runBenchmarksAndPrintResults("$[0]['latitude','longitude','isActive']")
+  }
+
+  @Test
+  @Order(11)
+  fun benchmarkWildcard() {
+    runBenchmarksAndPrintResults("$[0]['tags'].*")
+  }
+
+  @Test
+  @Order(12)
+  fun benchmarkRecursiveWildcard() {
+    runBenchmarksAndPrintResults("$[0]..*")
+  }
+
+  @Test
+  @Order(13)
   fun benchmarkCompilingPath() {
     fun compile(path: String) {
-      val kt = benchmark { JsonPath(path) }
+      val kt = benchmark { PathCompiler.compile(path) }
       val jayway = benchmark { JaywayJsonPath.compile(path) }
 
       val numTokens = PathCompiler.compile(path).size
@@ -116,65 +194,5 @@ class BenchmarkTest {
     compile("$[0].friends[1].other.a.b['c']")
     compile("$[0].friends[1].other.a.b['c'][5].niko[2].hello.world[6][9][0].id")
     compile("$[0].friends[1]..other[2].a.b['c'][5].niko[2]..hello[0].world[6][9]..['a','b','c'][0].id")
-  }
-
-  @Test
-  fun benchmarkDeepScans() {
-    val callsPerRun = 20000
-    val runs = 10
-    runBenchmarksAndPrintResults("$..name", callsPerRun, runs)
-    runBenchmarksAndPrintResults("$..['email','name']", callsPerRun, runs)
-    runBenchmarksAndPrintResults("$..[1]", callsPerRun, runs)
-  }
-
-  @Test
-  fun benchmarkDeepScanRanges() {
-    val callsPerRun = 20000
-    val runs = 10
-    runBenchmarksAndPrintResults("$..[:2]", callsPerRun, runs)
-    runBenchmarksAndPrintResults("$..[2:]", callsPerRun, runs)
-
-    // jayway jsonpath gives empty response for this so not valid comparison
-    // runBenchmarksAndPrintResults("$..[1:-1]", callsPerRun, runs)
-  }
-
-  @Test
-  fun benchmarkArrayAccessFromEndElement() {
-    runBenchmarksAndPrintResults("$[0]['tags'][-3]")
-  }
-
-  @Test
-  fun benchmarkArrayRangeFromStart() {
-    runBenchmarksAndPrintResults("$[0]['tags'][:3]")
-  }
-
-  @Test
-  fun benchmarkArrayRangeToEndElement() {
-    runBenchmarksAndPrintResults("$[0]['tags'][3:]")
-  }
-
-  @Test
-  fun benchmarkArrayRange() {
-    runBenchmarksAndPrintResults("$[0]['tags'][3:5]")
-  }
-
-  @Test
-  fun benchmarkMultiArrayAccess() {
-    runBenchmarksAndPrintResults("$[0]['tags'][0,3,5]")
-  }
-
-  @Test
-  fun benchmarkMultiObjectAccess() {
-    runBenchmarksAndPrintResults("$[0]['latitude','longitude','isActive']")
-  }
-
-  @Test
-  fun benchmarkWildcard() {
-    runBenchmarksAndPrintResults("$[0]['tags'].*")
-  }
-
-  @Test
-  fun benchmarkRecursiveWildcard() {
-    runBenchmarksAndPrintResults("$[0]..*")
   }
 }
