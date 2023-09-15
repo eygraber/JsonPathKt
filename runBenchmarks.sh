@@ -2,7 +2,7 @@
 
 FILE=/tmp/jsonpathkt
 FILE2=/tmp/jsonpathkt2
-./gradlew benchmark -PreadmeFormat > "$FILE"
+./gradlew :jsonpath-benchmarks:jvmRun > "$FILE"
 if [ $? -eq 0 ]; then
   cat "$FILE" | sed 's/^ *//' | grep '^|' > "$FILE2"
 

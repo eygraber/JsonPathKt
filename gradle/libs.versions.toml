@@ -31,8 +31,6 @@ jackson-moduleKotlin = { module = "com.fasterxml.jackson.module:jackson-module-k
 
 jayway-jsonPath = "com.jayway.jsonpath:json-path:2.8.0"
 
-json-org = "org.json:json:20230618"
-
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
 
 # not actually used; just here so renovate picks it up
@@ -40,5 +38,4 @@ ktlint = { module = "com.pinterest.ktlint:ktlint-bom", version.ref = "ktlint" }
 
 slf4j = "org.slf4j:slf4j-nop:2.0.9"
 
-test-junit = "org.junit.jupiter:junit-jupiter:5.10.0"
 test-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }

@@ -32,4 +32,7 @@ gradleEnterprise {
   }
 }
 
-include(":jsonpath")
+include(":jsonpath-benchmarks")
+include(":jsonpath-core")
+include(":jsonpath-kotlinx")
+include(":jsonpath-test")

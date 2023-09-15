@@ -1,4 +1,5 @@
 import com.eygraber.conventions.tasks.deleteRootBuildDirWhenCleaning
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 buildscript {
@@ -20,5 +21,7 @@ deleteRootBuildDirWhenCleaning()
 gradleConventionsDefaults {
   kotlin {
     jvmTargetVersion = JvmTarget.JVM_1_8
+    allWarningsAsErrors = true
+    explicitApiMode = ExplicitApiMode.Strict
   }
 }

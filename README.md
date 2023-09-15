@@ -16,22 +16,22 @@ errors only.
 A jsonpath that exists returns that value. `null` is returned when it doesn't.
 ```kotlin
 val json = """{"hello": "world"}"""
-JsonPath.parse(json)?.read<String>("$.hello") // returns "world"
-JsonPath.parse(json)?.read<String>("$.somethingelse") // returns null since "somethingelse" key not found
+Json.parseToJsonElement(json)?.read<String>("$.hello") // returns "world"
+Json.parseToJsonElement(json)?.read<String>("$.somethingelse") // returns null since "somethingelse" key not found
 ```
 
 A jsonpath that returns a collection containing the 2nd and 3rd items in the list (index 0 based and exclusive at range end).
 ```kotlin
 val json = """{"list": ["a","b","c","d"]}"""
-JsonPath.parse(json)?.read<List<String>>("$.list[1:3]") // returns listOf("b", "c")
+Json.parseToJsonElement(json)?.read<List<String>>("$.list[1:3]") // returns listOf("b", "c")
 ```
 
 JsonPathKt also works with `Map` and POJO.
 ```kotlin
 val json = """[{ "outer": {"inner": 1} }]"""
-JsonPath.parse(json)?.read<Map<String, Int>>("$[0].outer") // returns mapOf("inner" to 1)
+Json.parseToJsonElement(json)?.read<Map<String, Int>>("$[0].outer") // returns mapOf("inner" to 1)
 data class ParsedResult(val outer: Map<String, Int>) // define this class in file scope, not in function scope which will anonymize it 
-JsonPath.parse(json)?.read<ParsedResult>("$[0]") // returns ParsedResult instance
+Json.parseToJsonElement(json)?.read<ParsedResult>("$[0]") // returns ParsedResult instance
 ```
 
 Internally, a jsonpath is compiled into a list of tokens. You can compile a complex jsonpath once and reuse it across multiple JSON strings.
@@ -41,7 +41,7 @@ jsonpath.readFromJson<List<Map<String, String>>>(json1)
 jsonpath.readFromJson<List<Map<String, String>>>(json2)
 ```
 
-*JsonPathKt uses [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) to deserialize JSON strings. `JsonPath.parse` returns a 
+*JsonPathKt uses [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) to deserialize JSON strings. `Json.parseToJsonElement` returns a 
 `JsonElement` object, so if you've already deserialized, you can also `read` the jsonpath value directly.*
 
 
@@ -129,7 +129,7 @@ Given the JSON:
 | $.family.children[0].*     | Names & age values of first child          |
 
 ## Benchmarks
-These are benchmark tests of JsonPathKt against Jayway's JsonPath implementation. Results for each test is the average of 
+These are benchmark tests of JsonPathKt JVM against Jayway's JsonPath implementation. Results for each test is the average of 
 30 runs with 80,000 reads per run and each test returns its own respective results (some larger than others).
 You can run these tests locally with `./runBenchmarks.sh`
 
@@ -137,34 +137,36 @@ You can run these tests locally with `./runBenchmarks.sh`
 
 | Path Tested                             | JsonPathKt (ms) | JsonPath (ms) |
 |:----------------------------------------|:----------------|:--------------|
-| $[0].friends[1].other.a.b['c']          | 31 ms           | 81 ms         |
-| $[2]._id                                | 11 ms           | 28 ms         |
-| $..name                                 | 42 ms           | 472 ms        |
-| $..['email','name']                     | 55 ms           | 479 ms        |
-| $..[1]                                  | 40 ms           | 412 ms        |
-| $..[:2]                                 | 47 ms           | 462 ms        |
-| $..[2:]                                 | 69 ms           | 443 ms        |
-| $[0]['tags'][-3]                        | 22 ms           | 45 ms         |
-| $[0]['tags'][:3]                        | 29 ms           | 62 ms         |
-| $[0]['tags'][3:]                        | 30 ms           | 68 ms         |
-| $[0]['tags'][3:5]                       | 30 ms           | 62 ms         |
-| $[0]['tags'][0,3,5]                     | 26 ms           | 63 ms         |
-| $[0]['latitude','longitude','isActive'] | 31 ms           | 96 ms         |
-| $[0]['tags'].*                          | 17 ms           | 73 ms         |
-| $[0]..*                                 | 85 ms           | 597 ms        |
+| $[0].friends[1].other.a.b['c']          | 26 ms           | 53 ms         |
+| $[2]._id                                | 7 ms            | 18 ms         |
+| $..name                                 | 43 ms           | 275 ms        |
+| $..['email','name']                     | 52 ms           | 268 ms        |
+| $..[1]                                  | 33 ms           | 261 ms        |
+| $..[:2]                                 | 40 ms           | 274 ms        |
+| $..[2:]                                 | 59 ms           | 286 ms        |
+| $..[1:-1]                               | 58 ms           | 248 ms        |
+| $[0]['tags'][-3]                        | 13 ms           | 32 ms         |
+| $[0]['tags'][:3]                        | 19 ms           | 40 ms         |
+| $[0]['tags'][3:]                        | 20 ms           | 46 ms         |
+| $[0]['tags'][3:5]                       | 21 ms           | 41 ms         |
+| $[0]['tags'][0,3,5]                     | 23 ms           | 48 ms         |
+| $[0]['latitude','longitude','isActive'] | 22 ms           | 67 ms         |
+| $[0]['tags'].*                          | 11 ms           | 50 ms         |
+| $[0]..*                                 | 62 ms           | 476 ms        |
+
 
 
 **Compiling JsonPath strings to internal tokens**
 
 | Path size           | JsonPathKt | JsonPath |
 |:--------------------|:-----------|:---------|
-| 7 chars, 1 tokens   | 5 ms       | 5 ms     |
-| 16 chars, 3 tokens  | 11 ms      | 13 ms    |
-| 30 chars, 7 tokens  | 21 ms      | 32 ms    |
-| 65 chars, 16 tokens | 48 ms      | 69 ms    |
-| 88 chars, 19 tokens | 66 ms      | 103 ms   |
+| 7 chars, 1 tokens   | 3 ms       | 2 ms     |
+| 16 chars, 3 tokens  | 8 ms       | 8 ms     |
+| 30 chars, 7 tokens  | 15 ms      | 20 ms    |
+| 65 chars, 16 tokens | 35 ms      | 49 ms    |
+| 88 chars, 19 tokens | 45 ms      | 70 ms    |
+
 
 # Cache
 JsonPathKt doesn't provide a caching layer anymore. If caching is desired, there are multiple
 KMP caching libraries that can be used to wrap JsonPathKt.
-```

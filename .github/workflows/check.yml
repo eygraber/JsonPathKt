@@ -34,14 +34,7 @@ jobs:
           gradle-version: wrapper
 
       - name: Run gradle check
-        run: IS_JACOCO_ENABLED=true ./gradlew check
+        run: ./gradlew check
 
       - name: Run ktlint and detekt
         run: ./format --no-format && ./gradlew detektAppleMain detektJvmMain detektJsMain detektMetadataMain
-
-      - uses: codecov/codecov-action@v3.1.4
-        with:
-          files: build/reports/test/jacocoTestReport.xml
-          fail_ci_if_error: true
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
