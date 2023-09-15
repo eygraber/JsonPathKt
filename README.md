@@ -1,6 +1,5 @@
 # JsonPathKt
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt)
-[![codecov](https://codecov.io/gh/eygraber/JsonPathKt/branch/master/graph/badge.svg)](https://codecov.io/gh/eygraber/JsonPathKt)
 
 **A lighter and more efficient implementation of JsonPath in Kotlin.**
 With functional programming aspects found in langauges like Kotlin, Scala, and streams/lambdas in Java8, this
