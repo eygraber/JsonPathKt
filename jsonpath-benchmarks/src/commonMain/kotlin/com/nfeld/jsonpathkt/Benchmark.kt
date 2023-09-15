@@ -16,14 +16,20 @@ data class BenchmarkResult(
   val time: Long,
 )
 
-abstract class Benchmark(
-  private val printReadmeFormat: Boolean,
-) {
+abstract class Benchmark {
+  abstract val targetName: String
+
   abstract fun pathResolveBenchmarks(): List<BenchmarkOp>
 
   abstract fun pathCompilationBenchmarks(): List<BenchmarkOp>
 
   protected fun runAllBenchmarks() {
+    println("**$targetName**")
+    printBenchmarkHeader(
+      benchmarkName = "Path Tested ",
+      impls = pathResolveBenchmarks().map { it.name },
+    )
+
     benchmarkDeepPath()
     benchmarkShallowPath()
     benchmarkDeepScans()
@@ -36,6 +42,14 @@ abstract class Benchmark(
     benchmarkMultiObjectAccess()
     benchmarkWildcard()
     benchmarkRecursiveWildcard()
+
+    println()
+
+    println("**$targetName**")
+    printBenchmarkHeader(
+      benchmarkName = "Path Size",
+      impls = pathCompilationBenchmarks().map { it.name },
+    )
     benchmarkCompilingPath()
   }
 
@@ -112,7 +126,6 @@ abstract class Benchmark(
       printResults(
         path = name,
         results = results,
-        printReadmeFormat = printReadmeFormat,
       )
     }
 
@@ -141,7 +154,6 @@ abstract class Benchmark(
     printResults(
       path = path,
       results = results,
-      printReadmeFormat = printReadmeFormat,
     )
   }
 
@@ -168,27 +180,65 @@ abstract class Benchmark(
     return times.average().toLong()
   }
 
+  private fun printBenchmarkHeader(
+    benchmarkName: String,
+    impls: List<String>,
+  ) {
+    val longestNameLength = impls.maxOf { it.length }
+
+    val header = buildString {
+      // LONGEST_LENGTH_BENCHMARK_PATH can change if new path are tested that are longer than the current one
+      append("| $benchmarkName ${" ".repeat(LONGEST_LENGTH_BENCHMARK_PATH - benchmarkName.length)} |")
+
+      impls.centerStrings().forEach { centeredName ->
+        append("  $centeredName  |")
+      }
+    }
+
+    val dashes = buildString {
+      // add 2 for the preceding and trailing spaces
+      append("|:${"-".repeat(LONGEST_LENGTH_BENCHMARK_PATH + 2)}|")
+
+      repeat(impls.size) {
+        // + 4 for added padding - 1 for : = + 3
+        val dashes = "-".repeat(longestNameLength + 3)
+        append(":$dashes|")
+      }
+    }
+
+    println("$header\n$dashes")
+  }
+
   private fun printResults(
     path: String,
     results: List<BenchmarkResult>,
-    printReadmeFormat: Boolean,
   ) {
     println(
       buildString {
-        if (printReadmeFormat) {
-          append("|  $path  |")
-          results.forEach { result ->
-            append("  ${result.time} ms |")
+        // LONGEST_LENGTH_BENCHMARK_PATH can change if new path are tested that are longer than the current one
+        append("| $path ${" ".repeat(LONGEST_LENGTH_BENCHMARK_PATH - path.length)} |")
+
+        val longestNameLength = results.map { it.name }.maxOf { it.length }
+        results.map { "${it.time.toString().padStart(4, ' ')} ms" }
+          .centerStrings(longestLength = longestNameLength)
+          .forEach { time ->
+            append("  $time  |")
           }
-        } else {
-          append("$path  ")
-          append(
-            results.joinToString { result ->
-              "${result.name}: ${result.time} ms"
-            },
-          )
-        }
       },
     )
   }
+
+  companion object {
+    // this is hardcoded to the length of $[0]['latitude','longitude','isActive']
+    // update if needed
+    private const val LONGEST_LENGTH_BENCHMARK_PATH = 39
+  }
+}
+
+private fun List<String>.centerStrings(
+  longestLength: Int = maxOf { it.length },
+): List<String> = map { str ->
+  val totalPadding = longestLength - str.length
+  val leftPadding = (totalPadding + 1) / 2
+  str.padStart(str.length + leftPadding).padEnd(longestLength)
 }

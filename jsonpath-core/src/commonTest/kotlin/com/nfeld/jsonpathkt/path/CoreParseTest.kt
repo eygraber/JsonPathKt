@@ -5,7 +5,7 @@ import com.nfeld.jsonpathkt.LARGE_PARSED_JSON
 import com.nfeld.jsonpathkt.SMALL_JSON
 import com.nfeld.jsonpathkt.SMALL_JSON_ARRAY
 import com.nfeld.jsonpathkt.asJson
-import com.nfeld.jsonpathkt.kotlinx.resolvePath
+import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import com.nfeld.jsonpathkt.resolveAsType
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
@@ -19,7 +19,7 @@ import kotlin.test.Test
 class CoreParseTest {
   @Test
   fun parse_should_be_null_if_root_node_is_Null() {
-    JsonNull.resolvePath("$") shouldBe JsonNull
+    JsonNull.resolvePathOrNull("$") shouldBe null
   }
 
   @Test

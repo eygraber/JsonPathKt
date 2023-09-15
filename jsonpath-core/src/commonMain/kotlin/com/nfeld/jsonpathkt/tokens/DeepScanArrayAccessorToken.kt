@@ -5,7 +5,7 @@ import com.nfeld.jsonpathkt.json.JsonNode
 import com.nfeld.jsonpathkt.json.JsonType
 
 /**
- * Recursive scan for values/objects/arrays found for all [indices] specified. Returns a [JsonArray] containing results found.
+ * Recursive scan for values/objects/arrays found for all [indices] specified. Returns a JsonArray containing results found.
  *
  * @param indices indices to retrieve values/objects for
  */

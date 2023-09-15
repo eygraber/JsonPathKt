@@ -31,6 +31,8 @@ jackson-moduleKotlin = { module = "com.fasterxml.jackson.module:jackson-module-k
 
 jayway-jsonPath = "com.jayway.jsonpath:json-path:2.8.0"
 
+jsonJava = "org.json:json:20230618"
+
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
 
 # not actually used; just here so renovate picks it up

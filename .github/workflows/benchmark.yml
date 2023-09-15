@@ -1,0 +1,72 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  benchmark-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+
+      - uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'zulu'
+          java-version-file: .ci-java-version
+
+      - uses: gradle/wrapper-validation-action@v1.1.0
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.8.0
+        with:
+          gradle-version: wrapper
+
+      - name: Run JVM benchmark
+        run: ./gradlew :jsonpath-benchmarks:jvmRun
+
+      - name: Run Node JS benchmark
+        run: ./gradlew :jsonpath-benchmarks:jsNodeProductionRun
+
+      - name: Run Native Linux benchmark
+        run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableLinuxX64
+
+  benchmark-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+
+      - uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'zulu'
+          java-version-file: .ci-java-version
+
+      - uses: gradle/wrapper-validation-action@v1.1.0
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.8.0
+        with:
+          gradle-version: wrapper
+
+      - name: Run Native Linux benchmark
+        run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMacosX64
+
+  benchmark-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+
+      - uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'zulu'
+          java-version-file: .ci-java-version
+
+      - uses: gradle/wrapper-validation-action@v1.1.0
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2.8.0
+        with:
+          gradle-version: wrapper
+
+      - name: Run Native Linux benchmark
+        run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMingwX64

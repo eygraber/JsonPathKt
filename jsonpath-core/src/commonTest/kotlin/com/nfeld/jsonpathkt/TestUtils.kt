@@ -1,7 +1,7 @@
 package com.nfeld.jsonpathkt
 
 import com.nfeld.jsonpathkt.json.JsonNode
-import com.nfeld.jsonpathkt.kotlinx.resolvePath
+import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import com.nfeld.jsonpathkt.kotlinx.toJsonNode
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -26,7 +26,7 @@ internal fun JsonElement.jsonNode(isWildcardScope: Boolean = false) =
 internal inline fun <reified T : Any> JsonElement.resolveAsType(
   path: String,
 ): T? = try {
-  resolvePath(path)?.let { Json.decodeFromJsonElement(it) }
+  resolvePathOrNull(path)?.let { Json.decodeFromJsonElement(it) }
 } catch (_: Throwable) {
   null
 }

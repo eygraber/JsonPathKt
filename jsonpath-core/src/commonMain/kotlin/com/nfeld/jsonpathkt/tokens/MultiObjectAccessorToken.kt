@@ -4,7 +4,7 @@ import com.nfeld.jsonpathkt.json.JsonNode
 import com.nfeld.jsonpathkt.json.JsonType
 
 /**
- * Accesses values at [keys] from [JsonObject]. When read, value returned will be [JsonObject]
+ * Accesses values at [keys] from JsonObject. When read, value returned will be JsonObject
  * containing key/value pairs requested. Keys that are null or don't exist won't be added in Object
  *
  * @param keys keys to access for which key/values to return

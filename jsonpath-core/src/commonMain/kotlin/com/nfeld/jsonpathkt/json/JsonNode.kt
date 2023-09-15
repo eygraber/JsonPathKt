@@ -1,5 +1,8 @@
 package com.nfeld.jsonpathkt.json
 
+/**
+ * Provides an abstraction for integrating a JSON library into JsonPathKt
+ */
 public abstract class JsonNode(
   public val element: Any,
   /**

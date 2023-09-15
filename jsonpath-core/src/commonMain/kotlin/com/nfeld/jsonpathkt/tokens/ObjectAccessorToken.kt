@@ -4,7 +4,7 @@ import com.nfeld.jsonpathkt.json.JsonNode
 import com.nfeld.jsonpathkt.json.JsonType
 
 /**
- * Accesses value at [key] from [JsonObject]
+ * Accesses value at [key] from JsonObject
  *
  * @param key key to access
  */

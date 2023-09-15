@@ -61,6 +61,7 @@ kotlin {
 
     jvmMain {
       dependencies {
+        implementation(projects.jsonpathJsonjava)
         implementation(libs.jackson.core)
         implementation(libs.jackson.databind)
         implementation(libs.jackson.moduleKotlin)

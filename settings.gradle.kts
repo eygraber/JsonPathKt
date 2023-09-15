@@ -34,5 +34,6 @@ gradleEnterprise {
 
 include(":jsonpath-benchmarks")
 include(":jsonpath-core")
+include(":jsonpath-jsonjava")
 include(":jsonpath-kotlinx")
 include(":jsonpath-test")

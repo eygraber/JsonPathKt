@@ -44,10 +44,10 @@ internal class KotlinxJsonNode(
 
   override val isNotNull get() = element !is JsonNull
 
+  override fun createJsonLiteral(content: String): Any = JsonPrimitive(content)
+
   @Suppress("UNCHECKED_CAST")
   override fun toJsonArray(list: List<Any>): Any = JsonArray(list as List<JsonElement>)
-
-  override fun createJsonLiteral(content: String): Any = JsonPrimitive(content)
 
   override fun copy(element: Any, isWildcardScope: Boolean) = KotlinxJsonNode(element, isWildcardScope)
 }

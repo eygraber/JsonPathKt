@@ -13,7 +13,6 @@ import com.nfeld.jsonpathkt.tokens.Token
 import com.nfeld.jsonpathkt.tokens.WildcardToken
 
 internal object PathCompiler {
-
   /**
    * @param path Path string to compile
    * @return List of [Token] to read against a JSON

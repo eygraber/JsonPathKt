@@ -18,7 +18,7 @@ public value class JsonPath private constructor(
   }
 }
 
-public inline fun <reified T> JsonPath.resolve(node: JsonNode): T? =
+public inline fun <reified T> JsonPath.resolveOrNull(node: JsonNode): T? =
   tokens.fold(
     initial = node,
   ) { valueAtPath: JsonNode?, nextToken: Token ->

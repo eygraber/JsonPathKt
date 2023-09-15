@@ -5,7 +5,7 @@ import com.nfeld.jsonpathkt.json.JsonNode
 import com.nfeld.jsonpathkt.json.JsonType
 
 /**
- * Recursive scan for values/objects/arrays from [JsonArray] in range from [startIndex] to either [endIndex] or [offsetFromEnd] from end.
+ * Recursive scan for values/objects/arrays from JsonArray in range from [startIndex] to either [endIndex] or [offsetFromEnd] from end.
  * When read, value returned will be JsonArray of values at requested indices in order of values in range. Returns a JsonArray containing results found.
  *
  * @param startIndex starting index of range, inclusive. Can be negative.

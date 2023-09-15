@@ -1,7 +1,7 @@
 package com.nfeld.jsonpathkt.path
 
 import com.nfeld.jsonpathkt.LARGE_PARSED_JSON
-import com.nfeld.jsonpathkt.kotlinx.resolvePath
+import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import com.nfeld.jsonpathkt.resolveAsType
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
@@ -180,6 +180,6 @@ class DeepScansTest {
         "key": [0, 1]
       }
       """.trimIndent()
-    Json.parseToJsonElement(json).resolvePath("$..[1].key").toString() shouldBe """[42,200,500]"""
+    Json.parseToJsonElement(json).resolvePathOrNull("$..[1].key").toString() shouldBe """[42,200,500]"""
   }
 }
