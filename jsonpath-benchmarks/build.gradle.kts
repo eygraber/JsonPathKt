@@ -40,12 +40,9 @@ kotlin {
     }
 
     presets.withType<AbstractKotlinNativeTargetPreset<*>>().forEach {
-      if (!it.konanTarget.family.isAppleFamily && it.konanTarget !in KonanTarget.deprecatedTargets) {
-        // don't add android native targets
-        if (it.konanTarget.family != Family.ANDROID) {
-          targetFromPreset(it).binaries {
-            executable()
-          }
+      if (it.konanTarget.family != Family.ANDROID && it.konanTarget !in KonanTarget.deprecatedTargets) {
+        targetFromPreset(it).binaries {
+          executable()
         }
       }
     }
