@@ -2,7 +2,6 @@ import com.eygraber.conventions.kotlin.kmp.jvmMain
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset
-import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
 plugins {
@@ -40,7 +39,7 @@ kotlin {
     }
 
     presets.withType<AbstractKotlinNativeTargetPreset<*>>().forEach {
-      if (it.konanTarget.family != Family.ANDROID && it.konanTarget !in KonanTarget.deprecatedTargets) {
+      if (it.konanTarget !in KonanTarget.deprecatedTargets) {
         targetFromPreset(it).binaries {
           executable()
         }
