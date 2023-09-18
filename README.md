@@ -20,7 +20,7 @@ JsonPathKt is available at the Maven Central repository.
 ### Kotlinx Serialization
 You can use JsonPathKt with [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) in your KMP projects.
 
-It targets JVM, JS (node and browser), and all native targets (except Android native).
+It targets JVM, JS (node and browser), and all native targets.
 
 ```gradle
 dependencies {
