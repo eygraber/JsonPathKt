@@ -48,8 +48,11 @@ jobs:
         with:
           gradle-version: wrapper
 
-      - name: Run Native Linux benchmark
+      - name: Run Native Mac X64 benchmark
         run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMacosX64
+
+      - name: Run Native Mac ARM64 benchmark
+        run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMacosArm64
 
   benchmark-windows:
     runs-on: windows-latest
@@ -68,5 +71,5 @@ jobs:
         with:
           gradle-version: wrapper
 
-      - name: Run Native Linux benchmark
+      - name: Run Native Mingw benchmark
         run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMingwX64
