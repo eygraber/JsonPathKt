@@ -11,7 +11,7 @@ kotlin = "1.9.10"
 
 kotest = "5.7.2"
 
-ktlint = "1.0.0"
+ktlint = "1.0.1"
 
 publish = "0.25.3"
 
