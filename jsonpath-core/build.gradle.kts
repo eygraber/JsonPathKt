@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.AbstractKotlinNativeTargetPreset
-import org.jetbrains.kotlin.konan.target.KonanTarget
-
 plugins {
   id("com.eygraber.conventions-kotlin-multiplatform")
   id("com.eygraber.conventions-detekt")
@@ -9,23 +6,21 @@ plugins {
 }
 
 kotlin {
-  targets {
-    kmpTargets(
-      project = project,
-      android = false,
-      jvm = true,
-      ios = true,
-      macos = true,
-      wasm = false,
-      js = true,
-    )
-
-    presets.withType<AbstractKotlinNativeTargetPreset<*>>().forEach {
-      if (it.konanTarget !in KonanTarget.deprecatedTargets) {
-        targetFromPreset(it)
-      }
-    }
-  }
+  kmpTargets(
+    project = project,
+    android = false,
+    androidNative = true,
+    jvm = true,
+    ios = true,
+    tvos = true,
+    watchos = true,
+    macos = true,
+    linux = true,
+    mingw = true,
+    wasmJs = false,
+    wasmWasi = false,
+    js = true,
+  )
 
   sourceSets {
     getByName("commonTest") {
