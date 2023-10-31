@@ -13,6 +13,12 @@ class WildcardTest {
     // we have obj, list, list, and scalars. It should handle them all correctly the further we go down with wildcards
     // keep in mind wildcards always return a list, and drop scalars when going up a list. Scalars dont have levels to go up, only container nodes do
 
+    Json.parseToJsonElement("""[{"bar": [42]}]""").resolveAsType<JsonElement>("*")
+      .toString() shouldBe """[{"bar":[42]}]""" // in root list
+    Json.parseToJsonElement("""[{"bar": [42]}]""").resolveAsType<JsonElement>("$*")
+      .toString() shouldBe """[{"bar":[42]}]""" // in root list
+    Json.parseToJsonElement("""[{"bar": [42]}]""").resolveAsType<JsonElement>(".*")
+      .toString() shouldBe """[{"bar":[42]}]""" // in root list
     Json.parseToJsonElement("""[{"bar": [42]}]""").resolveAsType<JsonElement>("$.*")
       .toString() shouldBe """[{"bar":[42]}]""" // in root list
     Json.parseToJsonElement("""[{"bar": [42]}]""").resolveAsType<JsonElement>("$.*.*")
@@ -132,6 +138,9 @@ class WildcardTest {
 
   @Test
   fun parse_should_return_self_if_used_on_scalar() {
+    Json.parseToJsonElement("5").resolveAsType<Int>("*") shouldBe 5
+    Json.parseToJsonElement("5").resolveAsType<Int>("$*") shouldBe 5
+    Json.parseToJsonElement("5").resolveAsType<Int>(".*") shouldBe 5
     Json.parseToJsonElement("5").resolveAsType<Int>("$.*") shouldBe 5
     Json.parseToJsonElement("5.34").resolveAsType<Double>("$.*") shouldBe 5.34
     Json.parseToJsonElement("true").resolveAsType<Boolean>("$.*") shouldBe true
