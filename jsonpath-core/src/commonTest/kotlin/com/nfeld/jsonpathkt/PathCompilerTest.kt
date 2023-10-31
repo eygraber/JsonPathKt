@@ -58,6 +58,7 @@ class PathCompilerTest {
     assertEquals(listOf(ObjectAccessorToken("-0")), f("$-0"))
     assertEquals(listOf(ObjectAccessorToken("-"), ArrayAccessorToken(0)), f("$-[0]"))
     assertEquals(listOf(WildcardToken()), f("$.*"))
+    assertEquals(listOf(WildcardToken()), f("$*"))
     assertEquals(listOf(WildcardToken(), ObjectAccessorToken("key")), f("$.*.key"))
     assertEquals(listOf(WildcardToken(), ArrayAccessorToken(3)), f("$.*[3]"))
     assertEquals(
@@ -82,7 +83,8 @@ class PathCompilerTest {
     assertEquals(listOf(ObjectAccessorToken("key")), f("key"))
     assertEquals(listOf(ObjectAccessorToken("key")), f("['key']"))
     assertEquals(listOf(ObjectAccessorToken("key")), f("""["key"]"""))
-    assertEquals(listOf(ObjectAccessorToken("*")), f("*"))
+    assertEquals(listOf(WildcardToken()), f("*"))
+    assertEquals(listOf(WildcardToken()), f(".*"))
     assertEquals(listOf(ObjectAccessorToken("key"), ArrayAccessorToken(4)), f("key[4]"))
     assertEquals(listOf(MultiObjectAccessorToken(listOf("a", "b"))), f("['a','b']"))
     assertEquals(listOf(MultiObjectAccessorToken(listOf("a", "b"))), f("""["a","b"]"""))

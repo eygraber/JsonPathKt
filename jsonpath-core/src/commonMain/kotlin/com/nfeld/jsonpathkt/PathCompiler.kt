@@ -34,7 +34,7 @@ internal object PathCompiler {
       keyBuilder.clear()
     }
 
-    fun addObjectAccessorToken() {
+    fun addCurrentToken() {
       val key = keyBuilder.toString()
       val token = when {
         isDeepScan && isWildcard -> DeepScanWildcardToken()
@@ -50,14 +50,12 @@ internal object PathCompiler {
     while (i < len) {
       val c = path[i]
       val next = path.getOrNull(i + 1)
-      when {
-        c == '*' && isDeepScan -> {
-          isWildcard = true
-        }
+      when (c) {
+        '*' -> isWildcard = true
 
-        c == '.' -> {
+        '.' -> {
           if (keyBuilder.isNotEmpty() || isWildcard) {
-            addObjectAccessorToken()
+            addCurrentToken()
             resetForNextToken()
           }
           // check if it's followed by another dot. This means the following key will be used in deep scan
@@ -76,14 +74,14 @@ internal object PathCompiler {
           }
         }
 
-        c == '[' -> {
+        '[' -> {
           if (keyBuilder.isNotEmpty() || isWildcard) {
-            addObjectAccessorToken()
+            addCurrentToken()
             resetForNextToken()
           }
           val closingBracketIndex = findMatchingClosingBracket(path, i)
 
-          // i+1 checks to make sure atleast one char in the brackets
+          // i+1 checks to make sure at least one char in the brackets
           require(closingBracketIndex > i + 1) {
             "Expecting closing array bracket with a value inside"
           }
@@ -118,7 +116,7 @@ internal object PathCompiler {
     }
 
     if (keyBuilder.isNotEmpty() || isWildcard) {
-      addObjectAccessorToken()
+      addCurrentToken()
     }
 
     return tokens.toList()
