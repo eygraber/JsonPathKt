@@ -60,8 +60,8 @@ class ArrayAccessorTokenTest {
 
   @Test
   fun should_get_specified_character_of_every_String_in_a_root_level_array() {
-    ArrayAccessorToken(1).read(WildcardToken().read("""["hello","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["e","o"]"""
-    ArrayAccessorToken(-1).read(WildcardToken().read("""["hello","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["o","d"]"""
-    ArrayAccessorToken(-4).read(WildcardToken().read("""["h","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["o"]"""
+    ArrayAccessorToken(1).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["e","o"]"""
+    ArrayAccessorToken(-1).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["o","d"]"""
+    ArrayAccessorToken(-4).read(WildcardToken.read("""["h","world"]""".asJson.jsonNode()))?.asJson.toString() shouldBe """["o"]"""
   }
 }

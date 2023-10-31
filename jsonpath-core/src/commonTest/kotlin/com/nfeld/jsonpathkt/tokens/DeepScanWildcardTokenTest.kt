@@ -6,10 +6,9 @@ import kotlin.test.Test
 
 class DeepScanWildcardTokenTest {
   @Test
-  fun should_override_toString_hashCode_and_equals() {
-    DeepScanWildcardToken().toString() shouldBe "DeepScanWildcardToken"
-    DeepScanWildcardToken().hashCode() shouldBe "DeepScanWildcardToken".hashCode()
-    DeepScanWildcardToken() shouldBe DeepScanWildcardToken()
-    DeepScanWildcardToken() shouldNotBe ArrayAccessorToken(0)
+  fun should_be_a_data_object() {
+    DeepScanWildcardToken.toString() shouldBe "DeepScanWildcardToken"
+    DeepScanWildcardToken shouldBe DeepScanWildcardToken
+    DeepScanWildcardToken shouldNotBe ArrayAccessorToken(0)
   }
 }

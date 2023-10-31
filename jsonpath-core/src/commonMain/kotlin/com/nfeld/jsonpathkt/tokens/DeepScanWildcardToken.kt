@@ -4,7 +4,7 @@ import com.nfeld.jsonpathkt.json.JsonArrayBuilder
 import com.nfeld.jsonpathkt.json.JsonNode
 import com.nfeld.jsonpathkt.json.JsonType
 
-internal class DeepScanWildcardToken : Token {
+internal data object DeepScanWildcardToken : Token {
   private fun scan(node: JsonNode, result: JsonArrayBuilder) {
     when {
       node.isWildcardScope -> {
@@ -17,7 +17,7 @@ internal class DeepScanWildcardToken : Token {
       }
 
       node.type.isArrayOrObject -> {
-        WildcardToken().read(node).let { nextNode ->
+        WildcardToken.read(node).let { nextNode ->
           nextNode.asArray.forEach { element ->
             if (with(node) { element.isNotNull }) {
               result.add(element)
@@ -54,8 +54,4 @@ internal class DeepScanWildcardToken : Token {
       },
       isWildcardScope = true,
     )
-
-  override fun toString(): String = "DeepScanWildcardToken"
-  override fun hashCode(): Int = toString().hashCode()
-  override fun equals(other: Any?): Boolean = other is DeepScanWildcardToken
 }

@@ -24,12 +24,12 @@ class ArrayLengthBasedRangeAccessorTokenTest {
     ArrayLengthBasedRangeAccessorToken(
       0,
       2,
-    ).read(WildcardToken().read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
+    ).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
       2,
       null,
       -1,
-    ).read(WildcardToken().read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
+    ).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
   }
 
   @Test
@@ -37,15 +37,15 @@ class ArrayLengthBasedRangeAccessorTokenTest {
     ArrayLengthBasedRangeAccessorToken(
       0,
       1,
-    ).read(WildcardToken().read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
+    ).read(WildcardToken.read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
       0,
       -1,
-    ).read(WildcardToken().read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
+    ).read(WildcardToken.read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
       0,
       -1,
-    ).read(WildcardToken().read("""[{"p":true},{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
+    ).read(WildcardToken.read("""[{"p":true},{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
   }
 
   @Test
@@ -60,17 +60,17 @@ class ArrayLengthBasedRangeAccessorTokenTest {
       null,
       0,
     ).read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode()).asJson.toString() shouldBe "[1,[2],[3,4],[5,6,7]]"
-    ArrayLengthBasedRangeAccessorToken(0).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7]"
+    ArrayLengthBasedRangeAccessorToken(0).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7]"
     ArrayLengthBasedRangeAccessorToken(
       0,
       null,
       -1,
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[3,5,6]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[3,5,6]"
     ArrayLengthBasedRangeAccessorToken(
       0,
       null,
       0,
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7,[8,9,10,11]]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7,[8,9,10,11]]"
   }
 
   @Test
