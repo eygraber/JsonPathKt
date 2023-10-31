@@ -26,7 +26,7 @@ class ObjectAccessorTokenTest {
 
   @Test
   fun should_get_value_from_key_if_node_is_a_New_Root() {
-    val rootJson = WildcardToken().read(arrJson.jsonNode()) // should not be null
+    val rootJson = WildcardToken.read(arrJson.jsonNode()) // should not be null
     ObjectAccessorToken("key").read(rootJson)?.asJson.toString() shouldBe "[1]" // list since it was root level
   }
 }

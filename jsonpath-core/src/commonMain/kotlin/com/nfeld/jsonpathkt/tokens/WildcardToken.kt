@@ -6,7 +6,7 @@ import com.nfeld.jsonpathkt.json.JsonType
 /**
  * Returns all values from an Object, or the same list
  */
-internal class WildcardToken : Token {
+internal data object WildcardToken : Token {
   override fun read(node: JsonNode): JsonNode = when (node.type) {
     JsonType.Object -> {
       node.copy(
@@ -60,8 +60,4 @@ internal class WildcardToken : Token {
 
     else -> node.copy(isWildcardScope = false)
   }
-
-  override fun toString(): String = "WildcardToken"
-  override fun hashCode(): Int = toString().hashCode()
-  override fun equals(other: Any?): Boolean = other is WildcardToken
 }

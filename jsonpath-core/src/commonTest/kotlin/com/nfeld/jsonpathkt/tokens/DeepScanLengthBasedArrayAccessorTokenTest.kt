@@ -86,16 +86,16 @@ class DeepScanLengthBasedArrayAccessorTokenTest {
       0,
       null,
       0,
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7]"
     DeepScanLengthBasedArrayAccessorToken(
       0,
       null,
       -1,
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[3,5,6]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[3,5,6]"
     DeepScanLengthBasedArrayAccessorToken(
       0,
       null,
       0,
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7,[8,9,10,11],8,9,10,11]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7,[8,9,10,11],8,9,10,11]"
   }
 }

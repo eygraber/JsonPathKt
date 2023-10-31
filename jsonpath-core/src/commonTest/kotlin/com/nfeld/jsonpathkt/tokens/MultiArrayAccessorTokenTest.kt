@@ -97,6 +97,6 @@ class MultiArrayAccessorTokenTest {
         0,
         1,
       ),
-    ).read(WildcardToken().read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe """["h","e","w","o"]"""
+    ).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe """["h","e","w","o"]"""
   }
 }

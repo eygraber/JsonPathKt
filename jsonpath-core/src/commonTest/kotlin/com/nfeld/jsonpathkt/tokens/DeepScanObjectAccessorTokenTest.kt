@@ -41,13 +41,13 @@ class DeepScanObjectAccessorTokenTest {
         "c",
       ),
     ).read(json.jsonNode()).asJson.toString() shouldBe """[1,2,4,{"a":6,"b":7,"c":8},6,8]"""
-    DeepScanObjectAccessorToken(listOf("a")).read(WildcardToken().read(json.jsonNode())).asJson.toString() shouldBe """[1,2,4,6]"""
-    DeepScanObjectAccessorToken(listOf("c")).read(WildcardToken().read(json.jsonNode())).asJson.toString() shouldBe """[{"a":6,"b":7,"c":8},8]"""
+    DeepScanObjectAccessorToken(listOf("a")).read(WildcardToken.read(json.jsonNode())).asJson.toString() shouldBe """[1,2,4,6]"""
+    DeepScanObjectAccessorToken(listOf("c")).read(WildcardToken.read(json.jsonNode())).asJson.toString() shouldBe """[{"a":6,"b":7,"c":8},8]"""
     DeepScanObjectAccessorToken(
       listOf(
         "a",
         "c",
       ),
-    ).read(WildcardToken().read(json.jsonNode())).asJson.toString() shouldBe """[1,2,4,{"a":6,"b":7,"c":8},6,8]"""
+    ).read(WildcardToken.read(json.jsonNode())).asJson.toString() shouldBe """[1,2,4,{"a":6,"b":7,"c":8},6,8]"""
   }
 }

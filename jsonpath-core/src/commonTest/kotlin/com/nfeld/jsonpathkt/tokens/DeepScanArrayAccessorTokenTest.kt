@@ -47,30 +47,30 @@ class DeepScanArrayAccessorTokenTest {
         -1,
       ),
     ).read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode()).asJson.toString() shouldBe "[1,[5,6,7],2,2,3,4,5,7]"
-    DeepScanArrayAccessorToken(listOf(0)).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,5]"
+    DeepScanArrayAccessorToken(listOf(0)).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,5]"
     DeepScanArrayAccessorToken(
       listOf(
         0,
         1,
       ),
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6]"
     DeepScanArrayAccessorToken(
       listOf(
         0,
         -1,
       ),
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,2,3,4,5,7]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,2,3,4,5,7]"
     DeepScanArrayAccessorToken(
       listOf(
         0,
         1,
       ),
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,8,9]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,8,9]"
     DeepScanArrayAccessorToken(
       listOf(
         0,
         -1,
       ),
-    ).read(WildcardToken().read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,2,3,4,5,[8,9,10,11],8,11]"
+    ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,2,3,4,5,[8,9,10,11],8,11]"
   }
 }

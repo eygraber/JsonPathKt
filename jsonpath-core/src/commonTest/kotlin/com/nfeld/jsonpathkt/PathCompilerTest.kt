@@ -57,23 +57,23 @@ class PathCompilerTest {
     assertEquals(listOf(ObjectAccessorToken("-")), f("$-"))
     assertEquals(listOf(ObjectAccessorToken("-0")), f("$-0"))
     assertEquals(listOf(ObjectAccessorToken("-"), ArrayAccessorToken(0)), f("$-[0]"))
-    assertEquals(listOf(WildcardToken()), f("$.*"))
-    assertEquals(listOf(WildcardToken()), f("$*"))
-    assertEquals(listOf(WildcardToken(), ObjectAccessorToken("key")), f("$.*.key"))
-    assertEquals(listOf(WildcardToken(), ArrayAccessorToken(3)), f("$.*[3]"))
+    assertEquals(listOf(WildcardToken), f("$.*"))
+    assertEquals(listOf(WildcardToken), f("$*"))
+    assertEquals(listOf(WildcardToken, ObjectAccessorToken("key")), f("$.*.key"))
+    assertEquals(listOf(WildcardToken, ArrayAccessorToken(3)), f("$.*[3]"))
     assertEquals(
-      listOf(WildcardToken(), DeepScanObjectAccessorToken(listOf("key"))),
+      listOf(WildcardToken, DeepScanObjectAccessorToken(listOf("key"))),
       f("$.*..key"),
     )
     assertEquals(
-      listOf(WildcardToken(), DeepScanArrayAccessorToken(listOf(1, 2, 3))),
+      listOf(WildcardToken, DeepScanArrayAccessorToken(listOf(1, 2, 3))),
       f("$.*..[1:4]"),
     )
     f("""$..["key"]""") shouldBe listOf(DeepScanObjectAccessorToken(listOf("key")))
-    f("$..*") shouldBe listOf(DeepScanWildcardToken())
-    f("$..[*]") shouldBe listOf(DeepScanWildcardToken())
-    f("$..*..*") shouldBe listOf(DeepScanWildcardToken(), DeepScanWildcardToken())
-    f("$..[*]..[*]") shouldBe listOf(DeepScanWildcardToken(), DeepScanWildcardToken())
+    f("$..*") shouldBe listOf(DeepScanWildcardToken)
+    f("$..[*]") shouldBe listOf(DeepScanWildcardToken)
+    f("$..*..*") shouldBe listOf(DeepScanWildcardToken, DeepScanWildcardToken)
+    f("$..[*]..[*]") shouldBe listOf(DeepScanWildcardToken, DeepScanWildcardToken)
   }
 
   @Test
@@ -83,8 +83,8 @@ class PathCompilerTest {
     assertEquals(listOf(ObjectAccessorToken("key")), f("key"))
     assertEquals(listOf(ObjectAccessorToken("key")), f("['key']"))
     assertEquals(listOf(ObjectAccessorToken("key")), f("""["key"]"""))
-    assertEquals(listOf(WildcardToken()), f("*"))
-    assertEquals(listOf(WildcardToken()), f(".*"))
+    assertEquals(listOf(WildcardToken), f("*"))
+    assertEquals(listOf(WildcardToken), f(".*"))
     assertEquals(listOf(ObjectAccessorToken("key"), ArrayAccessorToken(4)), f("key[4]"))
     assertEquals(listOf(MultiObjectAccessorToken(listOf("a", "b"))), f("['a','b']"))
     assertEquals(listOf(MultiObjectAccessorToken(listOf("a", "b"))), f("""["a","b"]"""))
@@ -173,7 +173,7 @@ class PathCompilerTest {
       ObjectAccessorToken("name:age"),
       f(findClosingIndex("$['name:age']"), start, end),
     )
-    assertEquals(WildcardToken(), f(findClosingIndex("$[*]"), start, end))
+    assertEquals(WildcardToken, f(findClosingIndex("$[*]"), start, end))
     assertEquals(
       ObjectAccessorToken(""":@."$,*'\"""),
       f(findClosingIndex("""$[':@."$,*\'\\']"""), start, end),
@@ -238,7 +238,7 @@ class PathCompilerTest {
       MultiArrayAccessorToken(listOf(1, 2)),
       f(findClosingIndex("$[ 1 : 3 ]"), start, end),
     )
-    assertEquals(WildcardToken(), f(findClosingIndex("$[ *  ]"), start, end))
+    assertEquals(WildcardToken, f(findClosingIndex("$[ *  ]"), start, end))
     assertEquals(ObjectAccessorToken("name"), f(findClosingIndex("$[  'name'  ]"), start, end))
 
     // double quotes should be identical to single quotes
