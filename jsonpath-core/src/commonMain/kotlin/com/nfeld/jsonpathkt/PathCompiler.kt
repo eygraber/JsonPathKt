@@ -161,9 +161,14 @@ internal object PathCompiler {
           if (next == '\'' || next == '\\' || next == '"') {
             ++i // skip this char so we don't process escaped quote
           } else {
-            requireNotNull(next) {
-              "Unexpected char at end of path"
+            @Suppress("UseRequire")
+            if (next == null) {
+              throw IllegalArgumentException("Unexpected char at end of path")
             }
+            // manually throwing an exception because requireNotNull is causing issues with JS tests in 1.9.20
+            // requireNotNull(next) {
+            //   "Unexpected char at end of path"
+            // }
           }
         }
       }
