@@ -1,6 +1,7 @@
 package com.nfeld.jsonpathkt.jsonjava
 
 import com.nfeld.jsonpathkt.JsonPath
+import com.nfeld.jsonpathkt.ResolutionOptions
 import com.nfeld.jsonpathkt.resolveOrNull
 import org.json.JSONArray
 import org.json.JSONObject
@@ -21,32 +22,56 @@ public value class JSONElement(@PublishedApi internal val element: Any) {
   public inline val asStringOrNull: JSONString? get() = element as? JSONString
 }
 
-public fun JSONArray.resolveOrNull(path: JsonPath): JSONElement? = path.resolveOrNull(this)
+public fun JSONArray.resolveOrNull(
+  path: JsonPath,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = path.resolveOrNull(this, options)
+
 public fun JSONArray.resolveAsStringOrNull(path: JsonPath): String? =
   path.resolveOrNull(this)?.asStringOrNull?.toJSONString()
 
-public fun JSONArray.resolvePathOrNull(path: String): JSONElement? = JsonPath.compile(path).resolveOrNull(this)
+public fun JSONArray.resolvePathOrNull(
+  path: String,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = JsonPath.compile(path).resolveOrNull(this, options)
+
 public fun JSONArray.resolvePathAsStringOrNull(path: String): String? =
   JsonPath.compile(path).resolveOrNull(this)?.asStringOrNull?.toJSONString()
 
-public fun JSONObject.resolveOrNull(path: JsonPath): JSONElement? = path.resolveOrNull(this)
+public fun JSONObject.resolveOrNull(
+  path: JsonPath,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = path.resolveOrNull(this, options)
+
 public fun JSONObject.resolveAsStringOrNull(path: JsonPath): String? =
   path.resolveOrNull(this)?.asStringOrNull?.toJSONString()
 
-public fun JSONObject.resolvePathOrNull(path: String): JSONElement? = JsonPath.compile(path).resolveOrNull(this)
+public fun JSONObject.resolvePathOrNull(
+  path: String,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = JsonPath.compile(path).resolveOrNull(this, options)
+
 public fun JSONObject.resolvePathAsStringOrNull(path: String): String? =
   JsonPath.compile(path).resolveOrNull(this)?.asStringOrNull?.toJSONString()
 
-public fun JsonPath.resolveOrNull(json: JSONArray): JSONElement? = resolveOrNull<Any>(
+public fun JsonPath.resolveOrNull(
+  json: JSONArray,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = resolveOrNull<Any>(
   OrgJsonNode(json, isWildcardScope = false),
+  options,
 )?.let(::JSONElement)
 
 public fun JsonPath.resolveAsStringOrNull(json: JSONArray): String? = resolveOrNull<Any>(
   OrgJsonNode(json, isWildcardScope = false),
 )?.let(::JSONElement)?.asStringOrNull?.toJSONString()
 
-public fun JsonPath.resolveOrNull(json: JSONObject): JSONElement? = resolveOrNull<Any>(
+public fun JsonPath.resolveOrNull(
+  json: JSONObject,
+  options: ResolutionOptions = ResolutionOptions.Default,
+): JSONElement? = resolveOrNull<Any>(
   OrgJsonNode(json, isWildcardScope = false),
+  options,
 )?.let(::JSONElement)
 
 public fun JsonPath.resolveAsStringOrNull(json: JSONObject): String? = resolveOrNull<Any>(
