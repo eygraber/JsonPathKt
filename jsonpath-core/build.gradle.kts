@@ -17,7 +17,7 @@ kotlin {
     macos = true,
     linux = true,
     mingw = true,
-    wasmJs = false,
+    wasmJs = true,
     wasmWasi = false,
     js = true,
   )
