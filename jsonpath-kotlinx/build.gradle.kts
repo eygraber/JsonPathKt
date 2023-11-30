@@ -19,6 +19,7 @@ kotlin {
     wasmJs = false,
     wasmWasi = false,
     js = true,
+    jsBrowser = false,
   )
 
   sourceSets {
