@@ -13,7 +13,7 @@ kotest = "5.8.0"
 
 ktlint = "1.0.1"
 
-publish = "0.25.3"
+publish = "0.26.0"
 
 [plugins]
 conventions = { id = "com.eygraber.conventions", version.ref = "conventions" }
