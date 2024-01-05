@@ -22,7 +22,7 @@ danger(args) {
         # Don't merge if there is a WIP or Hold label applied
         # --------------------------------------------------------------------------------------------------------------------
         */
-        if("Hold" in labelNames) fail("This PR cannot be merged with a hold label applied")
+        if("hold" in labelNames) fail("This PR cannot be merged with a hold label applied")
 
         /*
         # --------------------------------------------------------------------------------------------------------------------

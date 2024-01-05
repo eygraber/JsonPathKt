@@ -17,7 +17,7 @@ kotlin {
     watchos = true,
     linux = true,
     mingw = true,
-    wasmJs = false,
+    wasmJs = true,
     wasmWasi = false,
     js = true,
     jsBrowser = false,
