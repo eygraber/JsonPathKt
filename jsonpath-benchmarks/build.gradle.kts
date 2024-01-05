@@ -7,20 +7,15 @@ plugins {
 }
 
 kotlin {
-
   kmpTargets(
+    KmpTarget.Js,
+    KmpTarget.Jvm,
+    KmpTarget.Linux,
+    KmpTarget.Macos,
+    KmpTarget.Mingw,
     project = project,
-    android = false,
-    androidNative = false,
-    jvm = true,
-    ios = false,
-    macos = true,
-    linux = true,
-    mingw = true,
-    wasmJs = false,
-    wasmWasi = false,
-    js = true,
     binaryType = BinaryType.Executable,
+    ignoreDefaultTargets = true,
   )
 
   jvm {

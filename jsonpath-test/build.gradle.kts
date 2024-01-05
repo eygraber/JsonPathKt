@@ -6,21 +6,8 @@ plugins {
 }
 
 kotlin {
-  kmpTargets(
+  defaultKmpTargets(
     project = project,
-    android = false,
-    androidNative = true,
-    jvm = true,
-    ios = true,
-    macos = true,
-    tvos = true,
-    watchos = true,
-    linux = true,
-    mingw = true,
-    wasmJs = false,
-    wasmWasi = false,
-    js = true,
-    jsBrowser = false,
   )
 }
 
