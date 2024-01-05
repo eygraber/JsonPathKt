@@ -7,6 +7,11 @@
   "prHourlyLimit": 3,
   "packageRules": [
     {
+      "groupName": "gradle-conventions",
+      "matchPackagePrefixes": ["com.eygraber.conventions"],
+      "automerge": true
+    },
+    {
       "matchDatasources": ["maven"],
       "depType": "dependencies",
       "registryUrls": [
@@ -14,16 +19,6 @@
         "https://dl.google.com/dl/android/maven2/",
         "https://plugins.gradle.org/m2"
       ]
-    },
-    {
-      "groupName": "GradleConventionsUpdates",
-      "matchFiles": ["libs.versions.toml", "settings.gradle.kts"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
-      "matchPackageNames": [
-        "com.eygraber.conventions.settings",
-        "com.eygraber.conventions"
-      ],
-      "automerge": true
     }
   ]
 }
