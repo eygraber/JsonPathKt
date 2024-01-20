@@ -29,7 +29,7 @@ jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jackson-moduleKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 
-jayway-jsonPath = "com.jayway.jsonpath:json-path:2.8.0"
+jayway-jsonPath = "com.jayway.jsonpath:json-path:2.9.0"
 
 jsonJava = "org.json:json:20231013"
 
