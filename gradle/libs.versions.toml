@@ -33,7 +33,7 @@ jayway-jsonPath = "com.jayway.jsonpath:json-path:2.9.0"
 
 jsonJava = "org.json:json:20240205"
 
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
 # not actually used; just here so renovate picks it up
 ktlint = { module = "com.pinterest.ktlint:ktlint-bom", version.ref = "ktlint" }
