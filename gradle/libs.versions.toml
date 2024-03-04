@@ -3,7 +3,7 @@ conventions = "0.0.69"
 
 detekt = "1.23.5"
 
-dokka = "1.9.10"
+dokka = "1.9.20"
 
 jackson = "2.16.1"
 
