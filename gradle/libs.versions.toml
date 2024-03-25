@@ -1,7 +1,7 @@
 [versions]
 conventions = "0.0.70"
 
-detekt = "1.23.5"
+detekt = "1.23.6"
 
 dokka = "1.9.20"
 
