@@ -28,6 +28,9 @@ jobs:
       - name: Run Node JS benchmark
         run: ./gradlew :jsonpath-benchmarks:jsNodeProductionRun
 
+      - name: Run Node WasmJs benchmark
+        run: ./gradlew :jsonpath-benchmarks:wasmJsNodeProductionRun
+
       - name: Run Native Linux benchmark
         run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableLinuxX64
 

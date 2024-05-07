@@ -13,6 +13,7 @@ kotlin {
     KmpTarget.Linux,
     KmpTarget.Macos,
     KmpTarget.Mingw,
+    KmpTarget.WasmJs,
     project = project,
     binaryType = BinaryType.Executable,
     ignoreDefaultTargets = true,

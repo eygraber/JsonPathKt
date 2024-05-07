@@ -36,6 +36,7 @@ gradleConventionsKmpDefaults {
     KmpTarget.Macos,
     KmpTarget.Mingw,
     KmpTarget.Tvos,
+    KmpTarget.WasmJs,
     KmpTarget.Watchos,
   )
 }
