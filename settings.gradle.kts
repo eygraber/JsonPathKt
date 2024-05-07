@@ -1,4 +1,5 @@
 import com.eygraber.conventions.Env
+import com.eygraber.conventions.repositories.mavenCentralSnapshotsS01
 
 pluginManagement {
   repositories {
@@ -14,6 +15,8 @@ dependencyResolutionManagement {
   @Suppress("UnstableApiUsage")
   repositories {
     mavenCentral()
+    // TODO: remove when Kotest releases 5.9.0
+    mavenCentralSnapshotsS01()
   }
 }
 
