@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 
 plugins {
   id("com.eygraber.conventions.settings") version "0.0.71"
-  id("com.gradle.develocity") version "3.17.3"
+  id("com.gradle.develocity") version "3.17.4"
 }
 
 rootProject.name = "jsonpathkt"
