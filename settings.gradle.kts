@@ -11,6 +11,10 @@ pluginManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
+  // comment this out for now because it doesn't work with KMP js
+  // https://youtrack.jetbrains.com/issue/KT-55620/KJS-Gradle-plugin-doesnt-support-repositoriesMode
+  // repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
   @Suppress("UnstableApiUsage")
   repositories {
     mavenCentral()
@@ -18,7 +22,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-  id("com.eygraber.conventions.settings") version "0.0.71"
+  id("com.eygraber.conventions.settings") version "0.0.74"
   id("com.gradle.develocity") version "3.17.4"
 }
 
