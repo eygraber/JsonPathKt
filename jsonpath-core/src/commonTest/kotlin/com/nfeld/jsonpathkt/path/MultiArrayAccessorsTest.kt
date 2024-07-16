@@ -27,4 +27,21 @@ class MultiArrayAccessorsTest {
   fun parse_should_return_empty_list_if_used_on_JSON_object() {
     Json.parseToJsonElement("""{"key":3}""").resolveAsType<JsonElement>("$[3,4]")?.toString() shouldBe "[]"
   }
+
+  @Test
+  fun parse_should_resolve_ranges_before_unions() {
+    val json = Json.parseToJsonElement("[1, 2, 3, 4]")
+    json.resolveAsType<JsonElement>("$[:,0]")?.toString() shouldBe "[1,2,3,4,1]"
+    json.resolveAsType<JsonElement>("$[0,:]")?.toString() shouldBe "[1,1,2,3,4]"
+    json.resolveAsType<JsonElement>("$[0:0,0]")?.toString() shouldBe "[1,2,3,4,1]"
+    json.resolveAsType<JsonElement>("$[0,0:0]")?.toString() shouldBe "[1,1,2,3,4]"
+    json.resolveAsType<JsonElement>("$[:0,0]")?.toString() shouldBe "[1,2,3,4,1]"
+    json.resolveAsType<JsonElement>("$[0:,0]")?.toString() shouldBe "[1,2,3,4,1]"
+    json.resolveAsType<JsonElement>("$[0,-1:]")?.toString() shouldBe "[1,4]"
+    json.resolveAsType<JsonElement>("$[0,:-1]")?.toString() shouldBe "[1,1,2,3]"
+    json.resolveAsType<JsonElement>("$[:-1,:-1]")?.toString() shouldBe "[1,2,3,1,2,3]"
+    json.resolveAsType<JsonElement>("$[:0,-1:]")?.toString() shouldBe "[1,2,3,4,4]"
+    json.resolveAsType<JsonElement>("$[-1:,:-1]")?.toString() shouldBe "[4,1,2,3]"
+    json.resolveAsType<JsonElement>("$[-1:,-1:]")?.toString() shouldBe "[4,4]"
+  }
 }

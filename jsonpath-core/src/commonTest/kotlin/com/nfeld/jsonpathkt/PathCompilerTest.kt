@@ -91,6 +91,12 @@ class PathCompilerTest {
     assertEquals(listOf(ArrayAccessorToken(3)), f("[3]"))
     assertEquals(listOf(MultiArrayAccessorToken(listOf(3, 4))), f("[3,4]"))
     assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2))), f("[:3]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2, 4))), f("[:3,4]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(3, 4, 0), setOf(1))), f("[3,4:]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2, 4, 0), setOf(3))), f("[:3,4:]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2, 4))), f("[0:3,4]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(3, 4))), f("[3,4:5]"))
+    assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2, 4, 0), setOf(3))), f("[0:3,4:]"))
     assertEquals(listOf(MultiArrayAccessorToken(listOf(0, 1, 2))), f("[0:3]"))
     assertEquals(listOf(ArrayLengthBasedRangeAccessorToken(1, null, 0)), f("[1:]"))
   }
@@ -214,6 +220,22 @@ class PathCompilerTest {
     assertEquals(
       ArrayLengthBasedRangeAccessorToken(-5, 4, 0),
       f(findClosingIndex("$[-5:4]"), start, end),
+    )
+
+    // ignore empty slices when there is a union
+    assertEquals(
+      MultiArrayAccessorToken(listOf(0, 0, -1), setOf(0)),
+      f(findClosingIndex("$[:0,-1]"), start, end),
+    )
+
+    assertEquals(
+      MultiArrayAccessorToken(listOf(0, -1, 0), setOf(1)),
+      f(findClosingIndex("$[0,-1:]"), start, end),
+    )
+
+    assertEquals(
+      MultiArrayAccessorToken(listOf(0, 0, -1, 0), setOf(0, 2)),
+      f(findClosingIndex("$[:0,-1:]"), start, end),
     )
 
     // ignore space paddings
