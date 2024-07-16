@@ -158,89 +158,118 @@ These are benchmark tests of JsonPathKt against other implementations. Results f
 **JVM**
 | Path Tested                              |   JsonPathKtKotlinx  |  JsonPathKtJsonJava  |       JsonPath       |
 |:-----------------------------------------|:---------------------|:---------------------|:---------------------|
-| $[0].friends[1].other.a.b['c']           |          26 ms       |         294 ms       |          53 ms       |
-| $[2]._id                                 |           7 ms       |         270 ms       |          18 ms       |
-| $..name                                  |          38 ms       |          68 ms       |         266 ms       |
-| $..['email','name']                      |          51 ms       |          71 ms       |         276 ms       |
-| $..[1]                                   |          35 ms       |         182 ms       |         261 ms       |
-| $..[:2]                                  |          42 ms       |         291 ms       |         274 ms       |
-| $..[2:]                                  |          61 ms       |         700 ms       |         282 ms       |
-| $..[1:-1]                                |          61 ms       |         771 ms       |         248 ms       |
-| $[0]['tags'][-3]                         |          13 ms       |         294 ms       |          33 ms       |
-| $[0]['tags'][:3]                         |          20 ms       |         302 ms       |          41 ms       |
-| $[0]['tags'][3:]                         |          21 ms       |         292 ms       |          45 ms       |
-| $[0]['tags'][3:5]                        |          21 ms       |         298 ms       |          40 ms       |
-| $[0]['tags'][0,3,5]                      |          21 ms       |         302 ms       |          50 ms       |
-| $[0]['latitude','longitude','isActive']  |          23 ms       |         303 ms       |          70 ms       |
-| $[0]['tags'].*                           |          12 ms       |         291 ms       |          52 ms       |
-| $[0]..*                                  |          67 ms       |         289 ms       |         455 ms       |
+| $[0].friends[1].other.a.b['c']           |          24 ms       |         248 ms       |          50 ms       |
+| $[2]._id                                 |           6 ms       |         230 ms       |          17 ms       |
+| $..name                                  |          37 ms       |          60 ms       |         263 ms       |
+| $..['email','name']                      |          52 ms       |          62 ms       |         273 ms       |
+| $..[1]                                   |          34 ms       |         154 ms       |         261 ms       |
+| $..[:2]                                  |          43 ms       |         249 ms       |         267 ms       |
+| $..[2:]                                  |          53 ms       |         607 ms       |         278 ms       |
+| $..[1:-1]                                |          57 ms       |         680 ms       |         242 ms       |
+| $[0]['tags'][-3]                         |          14 ms       |         251 ms       |          30 ms       |
+| $[0]['tags'][:3]                         |          22 ms       |         258 ms       |          41 ms       |
+| $[0]['tags'][3:]                         |          24 ms       |         254 ms       |          43 ms       |
+| $[0]['tags'][3:5]                        |          22 ms       |         258 ms       |          38 ms       |
+| $[0]['tags'][0,3,5]                      |          21 ms       |         257 ms       |          48 ms       |
+| $[0]['latitude','longitude','isActive']  |          23 ms       |         262 ms       |          68 ms       |
+| $[0]['tags'].*                           |          13 ms       |         248 ms       |          46 ms       |
+| $[0]..*                                  |          59 ms       |         246 ms       |         451 ms       |
 
 **LINUX_X64**
 | Path Tested                              |  JsonPathKt  |
 |:-----------------------------------------|:-------------|
-| $[0].friends[1].other.a.b['c']           |     145 ms   |
-| $[2]._id                                 |      59 ms   |
-| $..name                                  |     249 ms   |
-| $..['email','name']                      |     294 ms   |
-| $..[1]                                   |     206 ms   |
-| $..[:2]                                  |     221 ms   |
-| $..[2:]                                  |     355 ms   |
-| $..[1:-1]                                |     345 ms   |
-| $[0]['tags'][-3]                         |      97 ms   |
-| $[0]['tags'][:3]                         |     134 ms   |
-| $[0]['tags'][3:]                         |     144 ms   |
-| $[0]['tags'][3:5]                        |     135 ms   |
-| $[0]['tags'][0,3,5]                      |     139 ms   |
-| $[0]['latitude','longitude','isActive']  |     130 ms   |
-| $[0]['tags'].*                           |      78 ms   |
-| $[0]..*                                  |     564 ms   |
+| $[0].friends[1].other.a.b['c']           |     103 ms   |
+| $[2]._id                                 |      38 ms   |
+| $..name                                  |     181 ms   |
+| $..['email','name']                      |     212 ms   |
+| $..[1]                                   |     148 ms   |
+| $..[:2]                                  |     155 ms   |
+| $..[2:]                                  |     234 ms   |
+| $..[1:-1]                                |     237 ms   |
+| $[0]['tags'][-3]                         |      71 ms   |
+| $[0]['tags'][:3]                         |      92 ms   |
+| $[0]['tags'][3:]                         |      98 ms   |
+| $[0]['tags'][3:5]                        |      90 ms   |
+| $[0]['tags'][0,3,5]                      |      99 ms   |
+| $[0]['latitude','longitude','isActive']  |      92 ms   |
+| $[0]['tags'].*                           |      55 ms   |
+| $[0]..*                                  |     339 ms   |
 
 **JS Node**
 | Path Tested                              |  JsonPathKt  |
 |:-----------------------------------------|:-------------|
-| $[0].friends[1].other.a.b['c']           |     169 ms   |
-| $[2]._id                                 |      54 ms   |
-| $..name                                  |     191 ms   |
-| $..['email','name']                      |     250 ms   |
-| $..[1]                                   |     156 ms   |
-| $..[:2]                                  |     174 ms   |
-| $..[2:]                                  |     223 ms   |
-| $..[1:-1]                                |     228 ms   |
-| $[0]['tags'][-3]                         |      87 ms   |
-| $[0]['tags'][:3]                         |     111 ms   |
-| $[0]['tags'][3:]                         |     117 ms   |
-| $[0]['tags'][3:5]                        |     111 ms   |
-| $[0]['tags'][0,3,5]                      |     118 ms   |
-| $[0]['latitude','longitude','isActive']  |     199 ms   |
-| $[0]['tags'].*                           |      69 ms   |
-| $[0]..*                                  |     304 ms   |
+| $[0].friends[1].other.a.b['c']           |     101 ms   |
+| $[2]._id                                 |      40 ms   |
+| $..name                                  |     172 ms   |
+| $..['email','name']                      |     211 ms   |
+| $..[1]                                   |     139 ms   |
+| $..[:2]                                  |     155 ms   |
+| $..[2:]                                  |     192 ms   |
+| $..[1:-1]                                |     192 ms   |
+| $[0]['tags'][-3]                         |      70 ms   |
+| $[0]['tags'][:3]                         |      90 ms   |
+| $[0]['tags'][3:]                         |      95 ms   |
+| $[0]['tags'][3:5]                        |      88 ms   |
+| $[0]['tags'][0,3,5]                      |     106 ms   |
+| $[0]['latitude','longitude','isActive']  |     103 ms   |
+| $[0]['tags'].*                           |      61 ms   |
+| $[0]..*                                  |     268 ms   |
+
+**WasmJs**
+| Path Tested                              |  JsonPathKt  |
+|:-----------------------------------------|:-------------|
+| $[0].friends[1].other.a.b['c']           |      78 ms   |
+| $[2]._id                                 |      30 ms   |
+| $..name                                  |     109 ms   |
+| $..['email','name']                      |     138 ms   |
+| $..[1]                                   |      87 ms   |
+| $..[:2]                                  |      95 ms   |
+| $..[2:]                                  |     148 ms   |
+| $..[1:-1]                                |     147 ms   |
+| $[0]['tags'][-3]                         |      58 ms   |
+| $[0]['tags'][:3]                         |      74 ms   |
+| $[0]['tags'][3:]                         |      81 ms   |
+| $[0]['tags'][3:5]                        |      77 ms   |
+| $[0]['tags'][0,3,5]                      |      92 ms   |
+| $[0]['latitude','longitude','isActive']  |      84 ms   |
+| $[0]['tags'].*                           |      47 ms   |
+| $[0]..*                                  |     270 ms   |
 
 **Compiling JsonPath strings to internal tokens**
 
 **JVM**
 | Path Size                                |  JsonPathKt  |   JsonPath   |
 |:-----------------------------------------|:-------------|:-------------|
-| 7 chars, 1 tokens                        |       3 ms   |       2 ms   |
-| 16 chars, 3 tokens                       |       8 ms   |       7 ms   |
-| 30 chars, 7 tokens                       |      15 ms   |      19 ms   |
-| 65 chars, 16 tokens                      |      34 ms   |      47 ms   |
-| 88 chars, 19 tokens                      |      44 ms   |      70 ms   |
+| 7 chars, 1 tokens                        |       2 ms   |       2 ms   |
+| 16 chars, 3 tokens                       |       6 ms   |       8 ms   |
+| 30 chars, 7 tokens                       |      13 ms   |      19 ms   |
+| 65 chars, 16 tokens                      |      33 ms   |      47 ms   |
+| 88 chars, 19 tokens                      |      44 ms   |      73 ms   |
 
 
-**LINUX_64**
+**LINUX_X64**
 | Path Size                                |  JsonPathKt  |
 |:-----------------------------------------|:-------------|
-| 7 chars, 1 tokens                        |      31 ms   |
-| 16 chars, 3 tokens                       |      59 ms   |
-| 30 chars, 7 tokens                       |     117 ms   |
-| 65 chars, 16 tokens                      |     258 ms   |
-| 88 chars, 19 tokens                      |     365 ms   |
+| 7 chars, 1 tokens                        |      14 ms   |
+| 16 chars, 3 tokens                       |      34 ms   |
+| 30 chars, 7 tokens                       |      72 ms   |
+| 65 chars, 16 tokens                      |     177 ms   |
+| 88 chars, 19 tokens                      |     250 ms   |
 
 **JS Node**
 | Path Size                                |  JsonPathKt  |
 |:-----------------------------------------|:-------------|
-| 7 chars, 1 tokens                        |      35 ms   |
-| 16 chars, 3 tokens                       |      74 ms   |
-| 30 chars, 7 tokens                       |     126 ms   |
-| 65 chars, 16 tokens                      |     272 ms   |
-| 88 chars, 19 tokens                      |     337 ms   |
+| 7 chars, 1 tokens                        |      13 ms   |
+| 16 chars, 3 tokens                       |      37 ms   |
+| 30 chars, 7 tokens                       |      83 ms   |
+| 65 chars, 16 tokens                      |     189 ms   |
+| 88 chars, 19 tokens                      |     254 ms   |
+
+**WasmJs**
+| Path Size                                |  JsonPathKt  |
+|:-----------------------------------------|:-------------|
+| 7 chars, 1 tokens                        |       9 ms   |
+| 16 chars, 3 tokens                       |      26 ms   |
+| 30 chars, 7 tokens                       |      64 ms   |
+| 65 chars, 16 tokens                      |     154 ms   |
+| 88 chars, 19 tokens                      |     221 ms   |
