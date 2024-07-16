@@ -96,6 +96,30 @@ json?.resolvePathOrNull("$.list[1:3]")?.toString // returns '["b", "c"]'
 | `[<number> (, <number>)]` | JSON array accessor for index or comma-delimited indices             |
 | `[start:end]`             | JSON array range accessor from start (inclusive) to end (exclusive)  |
 
+### Edge cases
+
+This section will try to keep track of the edge cases where behavior might not be what you expect.
+
+#### Range steps
+
+Ranges use the array slice operator, i.e. `[start:end:step]`. The `step` value is not (currently) supported and behavior is undefined if there is a `step` value present.
+
+#### Unions and Ranges
+
+When an expression contains both unions (`[,]`) and ranges (`start:send`) the ranges will be resolved first, resulting in the resolved range being present in the final set.
+
+Given the JSON:
+```json
+[1, 2, 3, 4]
+```
+
+| JsonPath                   | Result      |
+|:---------------------------|:------------|
+| $[:,0]                     | [1,2,3,4,1] |
+| $[0,:]                     | [1,1,2,3,4] |
+| $[0:0,0]                   | [1,2,3,4,1] |
+| $[0,0:0]                   | [1,1,2,3,4] |
+
 ## Path expression examples
 JsonPathKt expressions can use any combination of dot–notation and bracket–notation operators to access JSON values. For examples, these all evaluate to the same result:
 ```text

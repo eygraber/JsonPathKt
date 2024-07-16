@@ -191,14 +191,13 @@ internal object PathCompiler {
     var isNegativeArrayAccessor = false // supplements isArrayAccessor
     var isQuoteOpened = false // means we found an opening quote, so we expect a closing one to be valid
     var isSingleQuote = false // either single quote or double quote opened
-    var hasStartColon = false // found colon in beginning
-    var hasEndColon = false // found colon in end
-    var isRange = false // has starting and ending range. There will be two keys containing indices of each
     var isWildcard = false
+    var isUnion = false
 
     var i = openingIndex + 1
     var lastChar: Char = path[openingIndex]
     val keys = mutableListOf<String>()
+    val rangeStartIndices = mutableSetOf<Int>()
     val keyBuilder = StringBuilder()
 
     fun buildAndAddKey() {
@@ -236,18 +235,23 @@ internal object PathCompiler {
         }
 
         c == ':' && !isQuoteOpened -> {
+          rangeStartIndices.add(keys.size)
+
           if (isBracketBefore() && isBracketNext()) {
-            hasStartColon = true
-            hasEndColon = true
+            keys.add("0")
+            keys.add("0")
           } else if (isBracketBefore()) {
-            hasStartColon = true
-          } else if (isBracketNext()) {
-            hasEndColon = true
-            // keybuilder should have a key...
-            buildAndAddKey()
-          } else if (keyBuilder.isNotEmpty()) {
-            buildAndAddKey() // becomes starting index of range
-            isRange = true
+            keys.add("0")
+          } else {
+            if (keyBuilder.isEmpty()) {
+              keys.add("0")
+            } else if (keyBuilder.isNotEmpty()) {
+              buildAndAddKey()
+            }
+
+            if (isBracketNext()) {
+              keys.add("0")
+            }
           }
         }
 
@@ -257,8 +261,13 @@ internal object PathCompiler {
 
         c == ',' && !isQuoteOpened -> {
           // object accessor would have added key on closing quote
-          if (!isObjectAccessor && keyBuilder.isNotEmpty()) {
-            buildAndAddKey()
+          if (!isObjectAccessor) {
+            isUnion = true
+            if (keyBuilder.isEmpty()) {
+              keys.add("0")
+            } else {
+              buildAndAddKey()
+            }
           }
         }
 
@@ -316,42 +325,62 @@ internal object PathCompiler {
     } else {
       when {
         isWildcard -> WildcardToken
-        isRange -> {
+        isUnion -> when {
+          keys.size == 1 -> ArrayAccessorToken(keys[0].toInt(10))
+
+          else -> {
+            val runtimeRangeIndices = mutableSetOf<Int>()
+            val indices = mutableListOf<Int>()
+            var cursor = 0
+            while (cursor < keys.size) {
+              if (cursor in rangeStartIndices) {
+                val start = keys[cursor].toInt(10)
+                val end = keys[cursor + 1].toInt(10)
+                if (start >= 0 && end > 0) {
+                  indices += IntRange(start, end - 1)
+                } else {
+                  runtimeRangeIndices += indices.size
+                  indices += start
+                  indices += end
+                }
+                cursor += 2
+              } else {
+                indices += keys[cursor].toInt(10)
+                cursor++
+              }
+            }
+
+            MultiArrayAccessorToken(indices, runtimeRangeIndices)
+          }
+        }
+
+        rangeStartIndices.isNotEmpty() -> {
           val start = keys[0].toInt(10)
           val end = keys[1].toInt(10) // exclusive
           val isEndNegative = end < 0
           if (start < 0 || isEndNegative) {
             val offsetFromEnd = if (isEndNegative) end else 0
-            val endIndex = if (!isEndNegative) end else null
+            val endIndex = if (end == 0) {
+              null
+            } else if (!isEndNegative) {
+              end
+            } else {
+              null
+            }
             ArrayLengthBasedRangeAccessorToken(start, endIndex, offsetFromEnd)
           } else {
-            MultiArrayAccessorToken(IntRange(start, end - 1).toList())
+            if (end == 0) {
+              ArrayLengthBasedRangeAccessorToken(start)
+            } else {
+              MultiArrayAccessorToken(IntRange(start, end - 1).toList())
+            }
           }
         }
 
-        hasStartColon && hasEndColon -> {
-          // take entire list from beginning to end
-          ArrayLengthBasedRangeAccessorToken(0, null, 0)
-        }
-
-        hasStartColon -> {
-          val end = keys[0].toInt(10) // exclusive
-          if (end < 0) {
-            // take all from beginning to last minus $end
-            ArrayLengthBasedRangeAccessorToken(0, null, end)
-          } else {
-            // take all from beginning of list up to $end
-            MultiArrayAccessorToken(IntRange(0, end - 1).toList())
-          }
-        }
-
-        hasEndColon -> {
-          val start = keys[0].toInt(10)
-          ArrayLengthBasedRangeAccessorToken(start)
-        }
+        keys.size > 1 -> MultiArrayAccessorToken(keys.map { it.toInt(10) })
 
         keys.size == 1 -> ArrayAccessorToken(keys[0].toInt(10))
-        keys.size > 1 -> MultiArrayAccessorToken(keys.map { it.toInt(10) })
+
         else -> null
       }
     }
