@@ -7,7 +7,7 @@ dokka = "1.9.20"
 
 jackson = "2.17.2"
 
-kotlin = "2.0.0"
+kotlin = "2.0.10"
 
 kotest = "5.9.1"
 
