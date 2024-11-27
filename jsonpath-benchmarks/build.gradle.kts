@@ -27,22 +27,19 @@ kotlin {
   }
 
   sourceSets {
-    commonMain {
-      dependencies {
-        implementation(projects.jsonpathKotlinx)
-        implementation(projects.jsonpathTest)
-      }
+    commonMain.dependencies {
+      implementation(projects.jsonpathCore)
+      implementation(projects.jsonpathKotlinx)
+      implementation(projects.jsonpathTest)
     }
 
-    jvmMain {
-      dependencies {
-        implementation(projects.jsonpathJsonjava)
-        implementation(libs.jackson.core)
-        implementation(libs.jackson.databind)
-        implementation(libs.jackson.moduleKotlin)
-        implementation(libs.jayway.jsonPath)
-        implementation(libs.slf4j)
-      }
+    jvmMain.dependencies {
+      implementation(projects.jsonpathJsonjava)
+      implementation(libs.jackson.core)
+      implementation(libs.jackson.databind)
+      implementation(libs.jackson.moduleKotlin)
+      implementation(libs.jayway.jsonPath)
+      implementation(libs.slf4j)
     }
   }
 }
