@@ -15,9 +15,9 @@ internal data class DeepScanObjectAccessorToken(val targetKeys: List<String>) : 
       JsonType.Object -> {
         // first add all values from keys requested to our result
         targetKeys.forEach { key ->
-          ObjectAccessorToken.read(node, key)?.let {
-            if (it.isNotNull) {
-              result.add(it.element)
+          ObjectAccessorToken.read(node, key)?.let { node ->
+            if (node.isNotNull) {
+              result.add(node.element)
             }
           }
         }

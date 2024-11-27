@@ -174,7 +174,9 @@ abstract class Benchmark {
         repeat(callsPerRun) {
           f()
         }
-      }.let { times += it.inWholeMilliseconds }
+      }.let { measuredTime ->
+        times += measuredTime.inWholeMilliseconds
+      }
     }
 
     return times.average().toLong()

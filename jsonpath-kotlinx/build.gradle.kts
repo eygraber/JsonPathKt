@@ -10,11 +10,9 @@ kotlin {
   )
 
   sourceSets {
-    commonMain {
-      dependencies {
-        api(projects.jsonpathCore)
-        api(libs.kotlinx.serialization.json)
-      }
+    commonMain.dependencies {
+      api(projects.jsonpathCore)
+      api(libs.kotlinx.serialization.json)
     }
   }
 }
