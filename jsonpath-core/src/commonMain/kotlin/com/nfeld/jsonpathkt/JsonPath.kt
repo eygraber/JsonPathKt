@@ -30,13 +30,13 @@ public inline fun <reified T> JsonPath.resolveOrNull(
     initial = node,
   ) { valueAtPath: JsonNode?, nextToken: Token ->
     valueAtPath?.let(nextToken::read)
-  }?.let {
+  }?.let { foldedNode ->
     val isRoot = tokens.isEmpty()
     val containsWildcard = tokens.any { token -> token is WildcardToken }
     val lastToken = tokens.lastOrNull()
     val isAccessingAnObjectOrArray =
       lastToken is ObjectAccessorToken || lastToken is ArrayAccessorToken
-    val isNodeAnArray = it.type == JsonType.Array
+    val isNodeAnArray = foldedNode.type == JsonType.Array
 
     val wrappingRequired =
       options.wrapSingleValue &&
@@ -44,7 +44,7 @@ public inline fun <reified T> JsonPath.resolveOrNull(
         (isRoot || isAccessingAnObjectOrArray || !isNodeAnArray)
 
     when {
-      wrappingRequired -> it.copy(element = it.toJsonArray(listOf(it.element)))
-      else -> it
+      wrappingRequired -> foldedNode.copy(element = foldedNode.toJsonArray(listOf(foldedNode.element)))
+      else -> foldedNode
     }
   }?.element as? T
