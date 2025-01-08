@@ -31,7 +31,7 @@ jackson-moduleKotlin = { module = "com.fasterxml.jackson.module:jackson-module-k
 
 jayway-jsonPath = "com.jayway.jsonpath:json-path:2.9.0"
 
-jsonJava = "org.json:json:20241224"
+jsonJava = "org.json:json:20250107"
 
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0"
 
