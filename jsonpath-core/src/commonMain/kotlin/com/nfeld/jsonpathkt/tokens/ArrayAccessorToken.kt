@@ -8,6 +8,7 @@ import com.nfeld.jsonpathkt.json.JsonType
  *
  * @param index index to access, can be negative which means to access from end
  */
+@PublishedApi
 internal data class ArrayAccessorToken(val index: Int) : Token {
   override fun read(node: JsonNode): JsonNode? = read(node, index)
 

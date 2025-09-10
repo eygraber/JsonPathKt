@@ -6,6 +6,7 @@ import com.nfeld.jsonpathkt.json.JsonType
 /**
  * Returns all values from an Object, or the same list
  */
+@PublishedApi
 internal data object WildcardToken : Token {
   override fun read(node: JsonNode): JsonNode = when (node.type) {
     JsonType.Object -> {
