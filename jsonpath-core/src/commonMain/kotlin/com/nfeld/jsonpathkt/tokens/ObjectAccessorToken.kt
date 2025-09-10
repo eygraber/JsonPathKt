@@ -8,6 +8,7 @@ import com.nfeld.jsonpathkt.json.JsonType
  *
  * @param key key to access
  */
+@PublishedApi
 internal data class ObjectAccessorToken(val key: String) : Token {
   override fun read(node: JsonNode): JsonNode? = read(node, key)
 
