@@ -12,4 +12,5 @@ ktlint_experimental = enabled
 ktlint_standard_blank-line-between-when-conditions = disabled
 ktlint_standard_class-signature = disabled
 ktlint_standard_function-signature = disabled
+ktlint_standard_mixed-condition-operators = disabled
 max_line_length = 120
