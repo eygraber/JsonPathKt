@@ -39,32 +39,30 @@ internal data class ArrayAccessorToken(val index: Int) : Token {
 
       JsonType.Null -> null
 
-      JsonType.Primitive -> {
-        when (val str = node.asString) {
-          null -> null
+      JsonType.Primitive -> when (val str = node.asString) {
+        null -> null
 
-          else -> if (index < 0) {
-            val indexFromLast = str.length + index
-            if (indexFromLast >= 0 && indexFromLast < str.length) {
-              node.copy(
-                element = node.createJsonLiteral(str[indexFromLast].toString()),
-                isWildcardScope = false,
-              )
-            } else {
-              null
-            }
-          } else if (index < str.length) {
+        else -> if (index < 0) {
+          val indexFromLast = str.length + index
+          if (indexFromLast >= 0 && indexFromLast < str.length) {
             node.copy(
-              element = node.createJsonLiteral(str[index].toString()),
+              element = node.createJsonLiteral(str[indexFromLast].toString()),
               isWildcardScope = false,
             )
           } else {
             null
           }
+        } else if (index < str.length) {
+          node.copy(
+            element = node.createJsonLiteral(str[index].toString()),
+            isWildcardScope = false,
+          )
+        } else {
+          null
         }
       }
 
-      else -> null
+      JsonType.Object -> null
     }
 
     private fun JsonNode.readValueAtIndex(index: Int): Any? {

@@ -11,7 +11,7 @@ import com.nfeld.jsonpathkt.json.JsonType
  */
 internal data class MultiObjectAccessorToken(val keys: List<String>) : Token {
   override fun read(node: JsonNode): JsonNode = when {
-    node.type == JsonType.Object -> {
+    node.type == JsonType.Object ->
       // Going from an object to a list always creates a root level list
       node.copy(
         element = node.buildJsonArray {
@@ -23,30 +23,27 @@ internal data class MultiObjectAccessorToken(val keys: List<String>) : Token {
         },
         isWildcardScope = true,
       )
-    }
 
-    node.type == JsonType.Array && node.isWildcardScope -> {
-      node.copy(
-        element = node.buildJsonArray {
-          node.asArray.forEach { element ->
-            keys.forEach { key ->
-              ObjectAccessorToken.read(
-                node = node.copy(
-                  element = element,
-                  isWildcardScope = false,
-                ),
-                key,
-              )?.let { nextNode ->
-                if (nextNode.isNotNull) {
-                  add(nextNode.element)
-                }
+    node.type == JsonType.Array && node.isWildcardScope -> node.copy(
+      element = node.buildJsonArray {
+        node.asArray.forEach { element ->
+          keys.forEach { key ->
+            ObjectAccessorToken.read(
+              node = node.copy(
+                element = element,
+                isWildcardScope = false,
+              ),
+              key,
+            )?.let { nextNode ->
+              if (nextNode.isNotNull) {
+                add(nextNode.element)
               }
             }
           }
-        },
-        isWildcardScope = true,
-      )
-    }
+        }
+      },
+      isWildcardScope = true,
+    )
 
     else -> node.copy(node.emptyJsonArray, isWildcardScope = true)
   }

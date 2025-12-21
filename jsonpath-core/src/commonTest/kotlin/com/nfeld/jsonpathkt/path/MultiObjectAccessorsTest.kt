@@ -21,7 +21,8 @@ class MultiObjectAccessorsTest {
       .resolveAsType<JsonElement>("$['key','another']")
       .toString() shouldBe "[]"
     Json.parseToJsonElement("""[{"key": "ey", "other": 1}, {"key": "bee"}, {"key": "see", "else": 3}]""")
-      .resolveAsType<JsonElement>("$['key','other']").toString() shouldBe "[]"
+      .resolveAsType<JsonElement>("$['key','other']")
+      .toString() shouldBe "[]"
   }
 
   @Test
@@ -29,7 +30,8 @@ class MultiObjectAccessorsTest {
     Json.parseToJsonElement("""[{"key": "value", "another": "entry"}]""")
       .resolveAsType<List<String>>("$.*['key','another']") shouldBe listOf("value", "entry")
     Json.parseToJsonElement("""[{"key": "ey", "other": 1}, {"key": "bee"}, {"key": "see", "else": 3}]""")
-      .resolveAsType<JsonElement>("$.*['key','other']").toString() shouldBe """["ey",1,"bee","see"]"""
+      .resolveAsType<JsonElement>("$.*['key','other']")
+      .toString() shouldBe """["ey",1,"bee","see"]"""
   }
 
   @Test

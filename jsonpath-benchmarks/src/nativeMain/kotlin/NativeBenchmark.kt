@@ -1,3 +1,5 @@
+@file:Suppress("MissingPackageDeclaration")
+
 import com.nfeld.jsonpathkt.Benchmark
 import com.nfeld.jsonpathkt.BenchmarkOp
 import com.nfeld.jsonpathkt.JsonPath

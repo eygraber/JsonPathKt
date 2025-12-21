@@ -13,14 +13,14 @@ internal data class ObjectAccessorToken(val key: String) : Token {
   override fun read(node: JsonNode): JsonNode? = read(node, key)
 
   companion object {
-    fun read(node: JsonNode, key: String): JsonNode? = when {
-      node.type == JsonType.Object -> with(node) {
+    fun read(node: JsonNode, key: String): JsonNode? = when (node.type) {
+      JsonType.Object -> with(node) {
         asObject.getIfNotNull(key)?.let {
           node.copy(it, isWildcardScope = false)
         }
       }
 
-      node.type == JsonType.Array && node.isWildcardScope -> {
+      JsonType.Array if node.isWildcardScope ->
         // we're at root level and can get children from objects
         node.copy(
           element = node.buildJsonArray {
@@ -34,10 +34,13 @@ internal data class ObjectAccessorToken(val key: String) : Token {
           },
           isWildcardScope = true,
         )
-      }
+
       // JsonArray should return null, unless it's the RootLevelArrayNode. This is intentional
       // everything else is scalar and not accessible
-      else -> null
+      JsonType.Array,
+      JsonType.Null,
+      JsonType.Primitive,
+      -> null
     }
   }
 }

@@ -3,8 +3,10 @@ package com.nfeld.jsonpathkt.kotlinx
 import com.nfeld.jsonpathkt.JsonPath
 import com.nfeld.jsonpathkt.ResolutionOptions
 import com.nfeld.jsonpathkt.resolveOrNull
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.contentOrNull
 
@@ -46,6 +48,9 @@ public fun JsonPath.resolveAsStringOrNull(json: JsonElement): String? {
 
   return when (value) {
     is JsonPrimitive -> value.contentOrNull
-    else -> null
+    is JsonArray,
+    is JsonObject,
+    null,
+    -> null
   }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("ForbiddenMethodCall")
+
 package com.nfeld.jsonpathkt
 
 import com.nfeld.jsonpathkt.json.JsonNode

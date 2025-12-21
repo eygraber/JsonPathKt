@@ -18,6 +18,7 @@ internal class KotlinxJsonNode(
   element: Any,
   isWildcardScope: Boolean,
 ) : JsonNode(element, isWildcardScope) {
+  @Suppress("ElseCaseInsteadOfExhaustiveWhen")
   override val type: JsonType = when (element as JsonElement) {
     is JsonArray -> JsonType.Array
     is JsonObject -> JsonType.Object

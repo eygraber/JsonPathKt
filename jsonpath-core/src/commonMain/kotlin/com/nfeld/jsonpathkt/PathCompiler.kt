@@ -86,7 +86,12 @@ internal object PathCompiler {
             "Expecting closing array bracket with a value inside"
           }
 
-          val token = compileBracket(path, i, closingBracketIndex)
+          val token = compileBracket(
+            path = path,
+            openingIndex = i,
+            closingIndex = closingBracketIndex,
+          )
+
           if (isDeepScan) {
             val deepScanToken: Token? = when (token) {
               is WildcardToken -> DeepScanWildcardToken
@@ -95,9 +100,9 @@ internal object PathCompiler {
               is ArrayAccessorToken -> DeepScanArrayAccessorToken(listOf(token.index))
               is MultiArrayAccessorToken -> DeepScanArrayAccessorToken(token.indices)
               is ArrayLengthBasedRangeAccessorToken -> DeepScanLengthBasedArrayAccessorToken(
-                token.startIndex,
-                token.endIndex,
-                token.offsetFromEnd,
+                startIndex = token.startIndex,
+                endIndex = token.endIndex,
+                offsetFromEnd = token.offsetFromEnd,
               )
 
               else -> null
@@ -136,38 +141,29 @@ internal object PathCompiler {
     while (i < len) {
       val c = path[i]
       val next = path.getOrNull(i + 1)
-      when {
-        c == '\'' || c == '"' -> {
-          when {
-            !isQuoteOpened -> {
-              isQuoteOpened = true
-              isSingleQuote = c == '\''
-            }
-
-            isSingleQuote && c == '\'' -> {
-              isQuoteOpened = false
-            }
-
-            !isSingleQuote && c == '"' -> {
-              isQuoteOpened = false
-            }
+      when (c) {
+        '\'', '"' -> when {
+          !isQuoteOpened -> {
+            isQuoteOpened = true
+            isSingleQuote = c == '\''
           }
+
+          isSingleQuote && c == '\'' -> isQuoteOpened = false
+
+          !isSingleQuote && c == '"' -> isQuoteOpened = false
         }
-
-        c == ']' && !isQuoteOpened -> return i
-        c == '\\' && isQuoteOpened -> {
-          if (next == '\'' || next == '\\' || next == '"') {
-            ++i // skip this char so we don't process escaped quote
-          } else {
-            @Suppress("UseRequire")
-            if (next == null) {
-              throw IllegalArgumentException("Unexpected char at end of path")
-            }
-            // manually throwing an exception because requireNotNull is causing issues with JS tests in 1.9.20
-            // requireNotNull(next) {
-            //   "Unexpected char at end of path"
-            // }
+        ']' if !isQuoteOpened -> return i
+        '\\' if isQuoteOpened -> if (next == '\'' || next == '\\' || next == '"') {
+          ++i // skip this char so we don't process escaped quote
+        } else {
+          @Suppress("UseRequire")
+          if (next == null) {
+            throw IllegalArgumentException("Unexpected char at end of path")
           }
+          // manually throwing an exception because requireNotNull is causing issues with JS tests in 1.9.20
+          // requireNotNull(next) {
+          //   "Unexpected char at end of path"
+          // }
         }
       }
       ++i
@@ -229,10 +225,9 @@ internal object PathCompiler {
       var setLastChar = true
 
       when {
-        c == ' ' && !isQuoteOpened -> {
+        c == ' ' && !isQuoteOpened ->
           // skip empty space that's not enclosed in quotes
           setLastChar = false
-        }
 
         c == ':' && !isQuoteOpened -> {
           rangeStartIndices.add(keys.size)
@@ -255,11 +250,9 @@ internal object PathCompiler {
           }
         }
 
-        c == '-' && !isObjectAccessor -> {
-          isNegativeArrayAccessor = true
-        }
+        c == '-' && !isObjectAccessor -> isNegativeArrayAccessor = true
 
-        c == ',' && !isQuoteOpened -> {
+        c == ',' && !isQuoteOpened ->
           // object accessor would have added key on closing quote
           if (!isObjectAccessor) {
             isUnion = true
@@ -269,14 +262,11 @@ internal object PathCompiler {
               buildAndAddKey()
             }
           }
-        }
 
-        c == '\\' && isQuoteOpened -> {
-          when (val nextChar = path[i + 1]) {
-            '\\', '\'', '"' -> {
-              keyBuilder.append(nextChar)
-              ++i
-            }
+        c == '\\' && isQuoteOpened -> when (val nextChar = path[i + 1]) {
+          '\\', '\'', '"' -> {
+            keyBuilder.append(nextChar)
+            ++i
           }
         }
 
@@ -296,9 +286,7 @@ internal object PathCompiler {
           isObjectAccessor = true
         }
 
-        c == '*' && !isQuoteOpened && isBracketBefore() && isBracketNext() -> {
-          isWildcard = true
-        }
+        c == '*' && !isQuoteOpened && isBracketBefore() && isBracketNext() -> isWildcard = true
 
         c.isDigit() && !isQuoteOpened || isObjectAccessor && isQuoteOpened -> keyBuilder.append(c)
         else -> throw IllegalArgumentException("Unexpected char, char=$c, index=$i")
