@@ -55,9 +55,9 @@ class DeepScanLengthBasedArrayAccessorTokenTest {
 
     printTesting("[-4:3]")
     res = DeepScanLengthBasedArrayAccessorToken(
-      -4,
-      3,
-      0,
+      startIndex = -4,
+      endIndex = 3,
+      offsetFromEnd = 0,
     ).read(json.jsonNode()).asJson.toString()
     assertEquals("[1,2]", res)
 

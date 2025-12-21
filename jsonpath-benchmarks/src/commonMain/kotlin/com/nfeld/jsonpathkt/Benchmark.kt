@@ -16,6 +16,7 @@ data class BenchmarkResult(
   val time: Long,
 )
 
+@Suppress("ForbiddenMethodCall")
 abstract class Benchmark {
   abstract val targetName: String
 
@@ -170,13 +171,13 @@ abstract class Benchmark {
     val times = mutableListOf<Long>()
 
     repeat(runs) {
-      measureTime {
+      val measuredTime = measureTime {
         repeat(callsPerRun) {
           f()
         }
-      }.let { measuredTime ->
-        times += measuredTime.inWholeMilliseconds
       }
+
+      times += measuredTime.inWholeMilliseconds
     }
 
     return times.average().toLong()

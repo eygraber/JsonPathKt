@@ -16,6 +16,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class PathCompilerTest {
+  @Suppress("UnnamedParameterUse")
   @Test
   fun compile() {
     val f = PathCompiler::compile
@@ -127,6 +128,7 @@ class PathCompilerTest {
     assertEquals(2, f("[*]", start))
   }
 
+  @Suppress("UnnamedParameterUse")
   @Test
   fun compileBracket() {
     val f = PathCompiler::compileBracket

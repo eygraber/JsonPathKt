@@ -12,6 +12,8 @@ import kotlinx.serialization.json.JsonElement
 import kotlin.test.Test
 
 class WrapSingleValueTest {
+  private val resolutionOptions = ResolutionOptions(wrapSingleValue = true)
+
   @Test
   fun parse_should_wrap_root_accessor() {
     SMALL_JSON.resolvePathWrappedOrNull("$") shouldBe "[${SMALL_JSON}]".asJson
@@ -74,8 +76,6 @@ class WrapSingleValueTest {
   fun parse_should_not_wrap_wildcard_object_accessor() {
     BOOKS_JSON.resolvePathWrappedOrNull("$.store.book.*.author") shouldBe """["Nigel Rees","Evelyn Waugh","Herman Melville","J. R. R. Tolkien"]""".asJson
   }
-
-  private val resolutionOptions = ResolutionOptions(wrapSingleValue = true)
 
   private fun String.resolvePathWrappedOrNull(path: String) =
     asJson.resolvePathWrappedOrNull(path)

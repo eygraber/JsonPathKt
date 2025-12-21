@@ -40,16 +40,16 @@ class ObjectAccessorsTest {
   fun parse_should_read_object_keys_that_have_numbers_and_or_symbols() {
     val key = "!@#\$%^&*()_-+=[]{}|:;<,>.?`~" // excluding '
     val json = """
-                {
-                    "key1": "a",
-                    "ke2y": "b",
-                    "ke3%y": "c",
-                    "1234": "d",
-                    "12$34": "e",
-                    "abc{}3d": "f",
-                    "$key": "g"
-                }
-            """
+    |{
+    |    "key1": "a",
+    |    "ke2y": "b",
+    |    "ke3%y": "c",
+    |    "1234": "d",
+    |    "12$34": "e",
+    |    "abc{}3d": "f",
+    |    "$key": "g"
+    |}
+    """.trimMargin()
     Json.parseToJsonElement(json).resolveAsType<String>("$.key1") shouldBe "a"
     Json.parseToJsonElement(json).resolveAsType<String>("$['key1']") shouldBe "a"
     Json.parseToJsonElement(json).resolveAsType<String>("$.ke2y") shouldBe "b"
@@ -82,12 +82,12 @@ class ObjectAccessorsTest {
       .toString() shouldBe """["ey","see"]"""
     Json.parseToJsonElement(
       """
-                {
-                    "one": {"key": "value"},
-                    "two": {"k": "v"},
-                    "three": {"some": "more", "key": "other value"}
-                }
-            """,
+      |{
+      |    "one": {"key": "value"},
+      |    "two": {"k": "v"},
+      |    "three": {"some": "more", "key": "other value"}
+      |}
+      """.trimMargin(),
     ).resolveAsType<JsonElement>("$['one','three'].key")
       .toString() shouldBe """["value","other value"]"""
 

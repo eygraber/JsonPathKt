@@ -22,8 +22,8 @@ class ArrayLengthBasedRangeAccessorTokenTest {
   @Test
   fun should_not_get_characters_of_every_String_in_a_root_level_array() {
     ArrayLengthBasedRangeAccessorToken(
-      0,
-      2,
+      startIndex = 0,
+      endIndex = 2,
     ).read(WildcardToken.read("""["hello","world"]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
       2,
@@ -35,16 +35,16 @@ class ArrayLengthBasedRangeAccessorTokenTest {
   @Test
   fun should_handle_objects_in_a_root_level_array() {
     ArrayLengthBasedRangeAccessorToken(
-      0,
-      1,
+      startIndex = 0,
+      endIndex = 1,
     ).read(WildcardToken.read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
-      0,
-      -1,
+      startIndex = 0,
+      endIndex = -1,
     ).read(WildcardToken.read("""[{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
     ArrayLengthBasedRangeAccessorToken(
-      0,
-      -1,
+      startIndex = 0,
+      endIndex = -1,
     ).read(WildcardToken.read("""[{"p":true},{"a":1,"b":{"c":2,"d":3},"e":4}]""".asJson.jsonNode())).asJson.toString() shouldBe "[]"
   }
 
@@ -73,6 +73,7 @@ class ArrayLengthBasedRangeAccessorTokenTest {
     ).read(WildcardToken.read("""[1,[2],[3,4],[5,6,7,[8,9,10,11]]]""".asJson.jsonNode())).asJson.toString() shouldBe "[2,3,4,5,6,7,[8,9,10,11]]"
   }
 
+  @Suppress("UnnamedParameterUse")
   @Test
   fun to_MultiArrayAccessorToken_general_cases() {
     val json = "[0,1,2,3,4]".asJson.jsonNode()

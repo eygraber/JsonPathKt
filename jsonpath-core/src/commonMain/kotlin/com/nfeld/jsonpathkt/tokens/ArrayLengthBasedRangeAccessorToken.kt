@@ -19,25 +19,29 @@ internal data class ArrayLengthBasedRangeAccessorToken(
   override fun read(node: JsonNode): JsonNode {
     val token = when (node.type) {
       JsonType.Array -> when {
-        node.isWildcardScope -> {
-          return node.copy(
-            element = node.buildJsonArray {
-              node.asArray.forEach { element ->
-                val nextNode = read(node.copy(element, isWildcardScope = false))
-                when (nextNode.type) {
-                  JsonType.Array -> nextNode.asArray.forEach(::add)
-                  else -> if (nextNode.isNotNull) add(nextNode.element)
-                }
+        node.isWildcardScope -> return node.copy(
+          element = node.buildJsonArray {
+            node.asArray.forEach { element ->
+              val nextNode = read(node.copy(element, isWildcardScope = false))
+              when (nextNode.type) {
+                JsonType.Array -> nextNode.asArray.forEach(::add)
+                JsonType.Object,
+                JsonType.Null,
+                JsonType.Primitive,
+                -> if (nextNode.isNotNull) add(nextNode.element)
               }
-            },
-            isWildcardScope = true,
-          )
-        }
+            }
+          },
+          isWildcardScope = true,
+        )
 
         else -> toMultiArrayAccessorToken(node)
       }
 
-      else -> null
+      JsonType.Object,
+      JsonType.Null,
+      JsonType.Primitive,
+      -> null
     }
     return token?.read(
       node.copy(isWildcardScope = false),
