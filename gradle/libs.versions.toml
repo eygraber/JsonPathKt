@@ -1,5 +1,5 @@
 [versions]
-conventions = "0.0.94"
+conventions = "0.0.97"
 
 detekt = "2.0.0-alpha.1"
 
@@ -13,7 +13,7 @@ kotest = "6.0.7"
 
 ktlint = "1.8.0"
 
-publish = "0.35.0"
+publish = "0.36.0"
 
 [plugins]
 conventions = { id = "com.eygraber.conventions", version.ref = "conventions" }
