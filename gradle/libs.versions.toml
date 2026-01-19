@@ -1,5 +1,5 @@
 [versions]
-conventions = "0.0.94"
+conventions = "0.0.97"
 
 detekt = "2.0.0-alpha.1"
 
