@@ -1,7 +1,7 @@
 [versions]
 conventions = "0.0.98"
 
-detekt = "2.0.0-alpha.1"
+detekt = "2.0.0-alpha.2"
 
 dokka = "2.1.0"
 
@@ -36,6 +36,7 @@ jsonJava = "org.json:json:20250517"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0"
 
 # not actually used; just here so renovate picks it up
+# noinspection UnusedVersionCatalogEntry
 ktlint = { module = "com.pinterest.ktlint:ktlint-bom", version.ref = "ktlint" }
 
 slf4j = "org.slf4j:slf4j-nop:2.0.17"
