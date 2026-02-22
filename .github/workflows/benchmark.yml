@@ -47,9 +47,6 @@ jobs:
         with:
           gradle-version: wrapper
 
-      - name: Run Native Mac X64 benchmark
-        run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMacosX64
-
       - name: Run Native Mac ARM64 benchmark
         run: ./gradlew :jsonpath-benchmarks:runReleaseExecutableMacosArm64
 
