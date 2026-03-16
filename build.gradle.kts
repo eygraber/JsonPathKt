@@ -54,12 +54,22 @@ plugins.withType<NodeJsRootPlugin> {
         if (packageJsonFile.exists()) {
           val mochaVersion = versions.mocha.version
           val content = packageJsonFile.readText()
-          val updated = content.replace(
-            """"devDependencies": {}""",
-            """"devDependencies": {
+          val updated = if (""""devDependencies": {}""" in content) {
+            content.replace(
+              """"devDependencies": {}""",
+              """"devDependencies": {
     "mocha": "$mochaVersion"
   }""",
-          )
+            )
+          } else if (""""mocha":""" !in content) {
+            content.replace(
+              """"devDependencies": {""",
+              """"devDependencies": {
+    "mocha": "$mochaVersion",""",
+            )
+          } else {
+            content
+          }
           packageJsonFile.writeText(updated)
         }
       }
