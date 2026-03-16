@@ -1,6 +1,8 @@
 import com.eygraber.conventions.tasks.deleteRootBuildDirWhenCleaning
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 buildscript {
   dependencies {
@@ -39,4 +41,28 @@ gradleConventionsKmpDefaults {
     KmpTarget.WasmJs,
     KmpTarget.Watchos,
   )
+}
+
+// Workaround: mocha is not hoisted to root node_modules by npm due to transitive
+// dependency version conflicts with other root-level packages (e.g. webpack).
+// kotlin-web-helpers needs mocha available at the root level for its mocha reporter.
+plugins.withType<NodeJsRootPlugin> {
+  the<NodeJsRootExtension>().apply {
+    tasks.named("rootPackageJson") {
+      doLast {
+        val packageJsonFile = layout.buildDirectory.file("js/package.json").get().asFile
+        if (packageJsonFile.exists()) {
+          val mochaVersion = versions.mocha.version
+          val content = packageJsonFile.readText()
+          val updated = content.replace(
+            """"devDependencies": {}""",
+            """"devDependencies": {
+    "mocha": "$mochaVersion"
+  }""",
+          )
+          packageJsonFile.writeText(updated)
+        }
+      }
+    }
+  }
 }
