@@ -3,7 +3,7 @@ conventions = "0.0.99"
 
 detekt = "2.0.0-alpha.2"
 
-dokka = "2.1.0"
+dokka = "2.2.0"
 
 jackson = "2.21.2"
 
