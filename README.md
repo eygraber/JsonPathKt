@@ -1,5 +1,4 @@
 # JsonPathKt
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.eygraber/jsonpathkt-core)
 
 **A lighter and more efficient implementation of JsonPath in Kotlin Multiplatform (KMP).**
 With functional programming aspects found in languages like Kotlin, Scala, and streams/lambdas in Java8, this
@@ -15,7 +14,6 @@ errors only.
 Ported from @codeniko [JsonPathKt](https://github.com/codeniko/JsonPathKt)
 
 ## Getting started
-JsonPathKt is available at the Maven Central repository.
 
 ### Kotlinx Serialization
 You can use JsonPathKt with [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) in your KMP projects.
@@ -36,6 +34,10 @@ dependencies {
     implementation("com.eygraber:jsonpathkt-jsonjava:3.0.2")
 }
 ```
+
+### Snapshots
+
+Snapshots can be found [here](https://central.sonatype.org/publish/publish-portal-snapshots/#consuming-via-gradle).
 
 ## Code examples
 Internally, a jsonpath is compiled into a list of tokens. You can compile a complex jsonpath once and reuse it across multiple JSON strings.
