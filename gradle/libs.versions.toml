@@ -39,6 +39,6 @@ kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1
 # noinspection UnusedVersionCatalogEntry
 ktlint = { module = "com.pinterest.ktlint:ktlint-bom", version.ref = "ktlint" }
 
-slf4j = "org.slf4j:slf4j-nop:2.0.17"
+slf4j = "org.slf4j:slf4j-nop:2.0.18"
 
 test-kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
