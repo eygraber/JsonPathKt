@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
+
 plugins {
   id("com.eygraber.conventions-kotlin-multiplatform")
   id("com.eygraber.conventions-detekt2")
@@ -9,6 +11,12 @@ kotlin {
   defaultKmpTargets(
     project = project,
   )
+
+  @OptIn(ExperimentalAbiValidation::class)
+  abiValidation {
+    enabled.set(true)
+    klib.enabled.set(true)
+  }
 
   sourceSets {
     commonTest.dependencies {

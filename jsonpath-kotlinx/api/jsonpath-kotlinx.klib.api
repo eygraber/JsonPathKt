@@ -1,0 +1,15 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.eygraber:jsonpath-kotlinx>
+final fun (com.nfeld.jsonpathkt/JsonPath).com.nfeld.jsonpathkt.kotlinx/resolveAsStringOrNull(kotlinx.serialization.json/JsonElement): kotlin/String? // com.nfeld.jsonpathkt.kotlinx/resolveAsStringOrNull|resolveAsStringOrNull@com.nfeld.jsonpathkt.JsonPath(kotlinx.serialization.json.JsonElement){}[0]
+final fun (com.nfeld.jsonpathkt/JsonPath).com.nfeld.jsonpathkt.kotlinx/resolveOrNull(kotlinx.serialization.json/JsonElement, com.nfeld.jsonpathkt/ResolutionOptions = ...): kotlinx.serialization.json/JsonElement? // com.nfeld.jsonpathkt.kotlinx/resolveOrNull|resolveOrNull@com.nfeld.jsonpathkt.JsonPath(kotlinx.serialization.json.JsonElement;com.nfeld.jsonpathkt.ResolutionOptions){}[0]
+final fun (kotlinx.serialization.json/JsonElement).com.nfeld.jsonpathkt.kotlinx/resolveAsStringOrNull(com.nfeld.jsonpathkt/JsonPath): kotlin/String? // com.nfeld.jsonpathkt.kotlinx/resolveAsStringOrNull|resolveAsStringOrNull@kotlinx.serialization.json.JsonElement(com.nfeld.jsonpathkt.JsonPath){}[0]
+final fun (kotlinx.serialization.json/JsonElement).com.nfeld.jsonpathkt.kotlinx/resolveOrNull(com.nfeld.jsonpathkt/JsonPath, com.nfeld.jsonpathkt/ResolutionOptions = ...): kotlinx.serialization.json/JsonElement? // com.nfeld.jsonpathkt.kotlinx/resolveOrNull|resolveOrNull@kotlinx.serialization.json.JsonElement(com.nfeld.jsonpathkt.JsonPath;com.nfeld.jsonpathkt.ResolutionOptions){}[0]
+final fun (kotlinx.serialization.json/JsonElement).com.nfeld.jsonpathkt.kotlinx/resolvePathAsStringOrNull(kotlin/String): kotlin/String? // com.nfeld.jsonpathkt.kotlinx/resolvePathAsStringOrNull|resolvePathAsStringOrNull@kotlinx.serialization.json.JsonElement(kotlin.String){}[0]
+final fun (kotlinx.serialization.json/JsonElement).com.nfeld.jsonpathkt.kotlinx/resolvePathOrNull(kotlin/String, com.nfeld.jsonpathkt/ResolutionOptions = ...): kotlinx.serialization.json/JsonElement? // com.nfeld.jsonpathkt.kotlinx/resolvePathOrNull|resolvePathOrNull@kotlinx.serialization.json.JsonElement(kotlin.String;com.nfeld.jsonpathkt.ResolutionOptions){}[0]
+final fun (kotlinx.serialization.json/JsonElement).com.nfeld.jsonpathkt.kotlinx/toJsonNode(kotlin/Boolean): com.nfeld.jsonpathkt.json/JsonNode // com.nfeld.jsonpathkt.kotlinx/toJsonNode|toJsonNode@kotlinx.serialization.json.JsonElement(kotlin.Boolean){}[0]

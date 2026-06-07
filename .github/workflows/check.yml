@@ -58,6 +58,24 @@ jobs:
       - name: Run ktlint
         run: ./format --no-format
 
+  abi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version-file: .ci-java-version
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: wrapper
+
+      - name: Check binary compatibility
+        run: ./gradlew checkKotlinAbi
+
   test:
     strategy:
       matrix:
