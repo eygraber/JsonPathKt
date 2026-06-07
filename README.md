@@ -22,7 +22,7 @@ It targets JVM, JS (node and browser), and all native targets.
 
 ```gradle
 dependencies {
-    implementation("com.eygraber:jsonpathkt-kotlinx:3.0.2")
+    implementation("com.eygraber:jsonpathkt-kotlinx:4.0.0")
 }
 ```
 
@@ -31,7 +31,7 @@ You can use JsonPathKt with [JSON-java (org.json)](https://github.com/stleary/JS
 
 ```gradle
 dependencies {
-    implementation("com.eygraber:jsonpathkt-jsonjava:3.0.2")
+    implementation("com.eygraber:jsonpathkt-jsonjava:4.0.0")
 }
 ```
 
