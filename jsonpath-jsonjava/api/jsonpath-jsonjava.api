@@ -1,0 +1,48 @@
+public final class com/nfeld/jsonpathkt/jsonjava/JSONElement {
+	public static final synthetic fun box-impl (Ljava/lang/Object;)Lcom/nfeld/jsonpathkt/jsonjava/JSONElement;
+	public static fun constructor-impl (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/Object;Ljava/lang/Object;)Z
+	public static final fun getAsArray-impl (Ljava/lang/Object;)Lorg/json/JSONArray;
+	public static final fun getAsArrayOrNull-impl (Ljava/lang/Object;)Lorg/json/JSONArray;
+	public static final fun getAsObject-impl (Ljava/lang/Object;)Lorg/json/JSONObject;
+	public static final fun getAsObjectOrNull-impl (Ljava/lang/Object;)Lorg/json/JSONObject;
+	public static final fun getAsString-impl (Ljava/lang/Object;)Lorg/json/JSONString;
+	public static final fun getAsStringOrNull-impl (Ljava/lang/Object;)Lorg/json/JSONString;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/Object;)I
+	public static final fun isArray-impl (Ljava/lang/Object;)Z
+	public static final fun isObject-impl (Ljava/lang/Object;)Z
+	public static final fun isString-impl (Ljava/lang/Object;)Z
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/Object;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/Object;
+}
+
+public final class com/nfeld/jsonpathkt/jsonjava/JsonJavaJsonNodeKt {
+	public static final fun toJsonNode (Lorg/json/JSONArray;Z)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public static final fun toJsonNode (Lorg/json/JSONObject;Z)Lcom/nfeld/jsonpathkt/json/JsonNode;
+}
+
+public final class com/nfeld/jsonpathkt/jsonjava/JsonJavaResolutionKt {
+	public static final fun resolveAsStringOrNull-5z6KBic (Ljava/util/List;Lorg/json/JSONArray;)Ljava/lang/String;
+	public static final fun resolveAsStringOrNull-5z6KBic (Ljava/util/List;Lorg/json/JSONObject;)Ljava/lang/String;
+	public static final fun resolveAsStringOrNull-X5kFpA0 (Lorg/json/JSONArray;Ljava/util/List;)Ljava/lang/String;
+	public static final fun resolveAsStringOrNull-X5kFpA0 (Lorg/json/JSONObject;Ljava/util/List;)Ljava/lang/String;
+	public static final fun resolveOrNull-0UCAOBU (Ljava/util/List;Lorg/json/JSONArray;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static final fun resolveOrNull-0UCAOBU (Ljava/util/List;Lorg/json/JSONObject;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static synthetic fun resolveOrNull-0UCAOBU$default (Ljava/util/List;Lorg/json/JSONArray;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun resolveOrNull-0UCAOBU$default (Ljava/util/List;Lorg/json/JSONObject;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun resolveOrNull-BoBP_3U (Lorg/json/JSONArray;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static final fun resolveOrNull-BoBP_3U (Lorg/json/JSONObject;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static synthetic fun resolveOrNull-BoBP_3U$default (Lorg/json/JSONArray;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun resolveOrNull-BoBP_3U$default (Lorg/json/JSONObject;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun resolvePathAsStringOrNull (Lorg/json/JSONArray;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun resolvePathAsStringOrNull (Lorg/json/JSONObject;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun resolvePathOrNull (Lorg/json/JSONArray;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static final fun resolvePathOrNull (Lorg/json/JSONObject;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Ljava/lang/Object;
+	public static synthetic fun resolvePathOrNull$default (Lorg/json/JSONArray;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun resolvePathOrNull$default (Lorg/json/JSONObject;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Ljava/lang/Object;
+}
+

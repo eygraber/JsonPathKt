@@ -1,0 +1,16 @@
+public final class com/nfeld/jsonpathkt/kotlinx/KotlinxJsonNodeKt {
+	public static final fun toJsonNode (Lkotlinx/serialization/json/JsonElement;Z)Lcom/nfeld/jsonpathkt/json/JsonNode;
+}
+
+public final class com/nfeld/jsonpathkt/kotlinx/KotlinxResolutionKt {
+	public static final fun resolveAsStringOrNull-5z6KBic (Ljava/util/List;Lkotlinx/serialization/json/JsonElement;)Ljava/lang/String;
+	public static final fun resolveAsStringOrNull-X5kFpA0 (Lkotlinx/serialization/json/JsonElement;Ljava/util/List;)Ljava/lang/String;
+	public static final fun resolveOrNull-0UCAOBU (Ljava/util/List;Lkotlinx/serialization/json/JsonElement;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Lkotlinx/serialization/json/JsonElement;
+	public static synthetic fun resolveOrNull-0UCAOBU$default (Ljava/util/List;Lkotlinx/serialization/json/JsonElement;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Lkotlinx/serialization/json/JsonElement;
+	public static final fun resolveOrNull-BoBP_3U (Lkotlinx/serialization/json/JsonElement;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Lkotlinx/serialization/json/JsonElement;
+	public static synthetic fun resolveOrNull-BoBP_3U$default (Lkotlinx/serialization/json/JsonElement;Ljava/util/List;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Lkotlinx/serialization/json/JsonElement;
+	public static final fun resolvePathAsStringOrNull (Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun resolvePathOrNull (Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;)Lkotlinx/serialization/json/JsonElement;
+	public static synthetic fun resolvePathOrNull$default (Lkotlinx/serialization/json/JsonElement;Ljava/lang/String;Lcom/nfeld/jsonpathkt/ResolutionOptions;ILjava/lang/Object;)Lkotlinx/serialization/json/JsonElement;
+}
+

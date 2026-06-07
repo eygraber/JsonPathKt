@@ -1,0 +1,110 @@
+public final class com/nfeld/jsonpathkt/JsonPath {
+	public static final field Companion Lcom/nfeld/jsonpathkt/JsonPath$Companion;
+	public static final synthetic fun box-impl (Ljava/util/List;)Lcom/nfeld/jsonpathkt/JsonPath;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/util/List;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/util/List;Ljava/util/List;)Z
+	public static final fun getTokenCount-impl (Ljava/util/List;)I
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/util/List;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/util/List;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/util/List;
+}
+
+public final class com/nfeld/jsonpathkt/JsonPath$Companion {
+	public final fun compile-8MMqd_U (Ljava/lang/String;)Ljava/util/List;
+}
+
+public final class com/nfeld/jsonpathkt/ResolutionOptions {
+	public static final field Companion Lcom/nfeld/jsonpathkt/ResolutionOptions$Companion;
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun copy (Z)Lcom/nfeld/jsonpathkt/ResolutionOptions;
+	public static synthetic fun copy$default (Lcom/nfeld/jsonpathkt/ResolutionOptions;ZILjava/lang/Object;)Lcom/nfeld/jsonpathkt/ResolutionOptions;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getWrapSingleValue ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/nfeld/jsonpathkt/ResolutionOptions$Companion {
+	public final fun getDefault ()Lcom/nfeld/jsonpathkt/ResolutionOptions;
+}
+
+public abstract class com/nfeld/jsonpathkt/json/JsonNode {
+	public fun <init> (Ljava/lang/Object;Z)V
+	public abstract fun copy (Ljava/lang/Object;Z)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public static synthetic fun copy$default (Lcom/nfeld/jsonpathkt/json/JsonNode;Ljava/lang/Object;ZILjava/lang/Object;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public abstract fun createJsonLiteral (Ljava/lang/String;)Ljava/lang/Object;
+	public abstract fun getAsArray ()Ljava/util/List;
+	public abstract fun getAsObject ()Ljava/util/Map;
+	public abstract fun getAsObjectValues ()Ljava/util/Collection;
+	public abstract fun getAsString ()Ljava/lang/String;
+	public final fun getElement ()Ljava/lang/Object;
+	public abstract fun getEmptyJsonArray ()Ljava/lang/Object;
+	public abstract fun getType ()Lcom/nfeld/jsonpathkt/json/JsonType;
+	public abstract fun isNotNull ()Z
+	public abstract fun isNull (Ljava/lang/Object;)Z
+	public abstract fun toJsonArray (Ljava/util/List;)Ljava/lang/Object;
+}
+
+public final class com/nfeld/jsonpathkt/json/JsonType : java/lang/Enum {
+	public static final field Array Lcom/nfeld/jsonpathkt/json/JsonType;
+	public static final field Null Lcom/nfeld/jsonpathkt/json/JsonType;
+	public static final field Object Lcom/nfeld/jsonpathkt/json/JsonType;
+	public static final field Primitive Lcom/nfeld/jsonpathkt/json/JsonType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isArrayOrObject ()Z
+	public static fun valueOf (Ljava/lang/String;)Lcom/nfeld/jsonpathkt/json/JsonType;
+	public static fun values ()[Lcom/nfeld/jsonpathkt/json/JsonType;
+}
+
+public final class com/nfeld/jsonpathkt/tokens/ArrayAccessorToken : com/nfeld/jsonpathkt/tokens/Token {
+	public static final field Companion Lcom/nfeld/jsonpathkt/tokens/ArrayAccessorToken$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lcom/nfeld/jsonpathkt/tokens/ArrayAccessorToken;
+	public static synthetic fun copy$default (Lcom/nfeld/jsonpathkt/tokens/ArrayAccessorToken;IILjava/lang/Object;)Lcom/nfeld/jsonpathkt/tokens/ArrayAccessorToken;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIndex ()I
+	public fun hashCode ()I
+	public fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/nfeld/jsonpathkt/tokens/ArrayAccessorToken$Companion {
+	public final fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;I)Lcom/nfeld/jsonpathkt/json/JsonNode;
+}
+
+public final class com/nfeld/jsonpathkt/tokens/ObjectAccessorToken : com/nfeld/jsonpathkt/tokens/Token {
+	public static final field Companion Lcom/nfeld/jsonpathkt/tokens/ObjectAccessorToken$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/nfeld/jsonpathkt/tokens/ObjectAccessorToken;
+	public static synthetic fun copy$default (Lcom/nfeld/jsonpathkt/tokens/ObjectAccessorToken;Ljava/lang/String;ILjava/lang/Object;)Lcom/nfeld/jsonpathkt/tokens/ObjectAccessorToken;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getKey ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/nfeld/jsonpathkt/tokens/ObjectAccessorToken$Companion {
+	public final fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;Ljava/lang/String;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+}
+
+public abstract interface class com/nfeld/jsonpathkt/tokens/Token {
+	public abstract fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+}
+
+public final class com/nfeld/jsonpathkt/tokens/WildcardToken : com/nfeld/jsonpathkt/tokens/Token {
+	public static final field INSTANCE Lcom/nfeld/jsonpathkt/tokens/WildcardToken;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun read (Lcom/nfeld/jsonpathkt/json/JsonNode;)Lcom/nfeld/jsonpathkt/json/JsonNode;
+	public fun toString ()Ljava/lang/String;
+}
+

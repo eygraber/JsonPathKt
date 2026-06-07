@@ -1,0 +1,131 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, js, linuxArm64, linuxX64, macosArm64, mingwX64, tvosArm64, tvosSimulatorArm64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.eygraber:jsonpath-core>
+final enum class com.nfeld.jsonpathkt.json/JsonType : kotlin/Enum<com.nfeld.jsonpathkt.json/JsonType> { // com.nfeld.jsonpathkt.json/JsonType|null[0]
+    enum entry Array // com.nfeld.jsonpathkt.json/JsonType.Array|null[0]
+    enum entry Null // com.nfeld.jsonpathkt.json/JsonType.Null|null[0]
+    enum entry Object // com.nfeld.jsonpathkt.json/JsonType.Object|null[0]
+    enum entry Primitive // com.nfeld.jsonpathkt.json/JsonType.Primitive|null[0]
+
+    final val entries // com.nfeld.jsonpathkt.json/JsonType.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.nfeld.jsonpathkt.json/JsonType> // com.nfeld.jsonpathkt.json/JsonType.entries.<get-entries>|<get-entries>#static(){}[0]
+    final val isArrayOrObject // com.nfeld.jsonpathkt.json/JsonType.isArrayOrObject|{}isArrayOrObject[0]
+        final inline fun <get-isArrayOrObject>(): kotlin/Boolean // com.nfeld.jsonpathkt.json/JsonType.isArrayOrObject.<get-isArrayOrObject>|<get-isArrayOrObject>(){}[0]
+
+    final fun valueOf(kotlin/String): com.nfeld.jsonpathkt.json/JsonType // com.nfeld.jsonpathkt.json/JsonType.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.nfeld.jsonpathkt.json/JsonType> // com.nfeld.jsonpathkt.json/JsonType.values|values#static(){}[0]
+}
+
+abstract interface com.nfeld.jsonpathkt.tokens/Token { // com.nfeld.jsonpathkt.tokens/Token|null[0]
+    abstract fun read(com.nfeld.jsonpathkt.json/JsonNode): com.nfeld.jsonpathkt.json/JsonNode? // com.nfeld.jsonpathkt.tokens/Token.read|read(com.nfeld.jsonpathkt.json.JsonNode){}[0]
+}
+
+abstract class com.nfeld.jsonpathkt.json/JsonNode { // com.nfeld.jsonpathkt.json/JsonNode|null[0]
+    constructor <init>(kotlin/Any, kotlin/Boolean) // com.nfeld.jsonpathkt.json/JsonNode.<init>|<init>(kotlin.Any;kotlin.Boolean){}[0]
+
+    abstract val asArray // com.nfeld.jsonpathkt.json/JsonNode.asArray|{}asArray[0]
+        abstract fun <get-asArray>(): kotlin.collections/List<kotlin/Any> // com.nfeld.jsonpathkt.json/JsonNode.asArray.<get-asArray>|<get-asArray>(){}[0]
+    abstract val asObject // com.nfeld.jsonpathkt.json/JsonNode.asObject|{}asObject[0]
+        abstract fun <get-asObject>(): kotlin.collections/Map<kotlin/String, kotlin/Any> // com.nfeld.jsonpathkt.json/JsonNode.asObject.<get-asObject>|<get-asObject>(){}[0]
+    abstract val asObjectValues // com.nfeld.jsonpathkt.json/JsonNode.asObjectValues|{}asObjectValues[0]
+        abstract fun <get-asObjectValues>(): kotlin.collections/Collection<kotlin/Any> // com.nfeld.jsonpathkt.json/JsonNode.asObjectValues.<get-asObjectValues>|<get-asObjectValues>(){}[0]
+    abstract val asString // com.nfeld.jsonpathkt.json/JsonNode.asString|{}asString[0]
+        abstract fun <get-asString>(): kotlin/String? // com.nfeld.jsonpathkt.json/JsonNode.asString.<get-asString>|<get-asString>(){}[0]
+    abstract val emptyJsonArray // com.nfeld.jsonpathkt.json/JsonNode.emptyJsonArray|{}emptyJsonArray[0]
+        abstract fun <get-emptyJsonArray>(): kotlin/Any // com.nfeld.jsonpathkt.json/JsonNode.emptyJsonArray.<get-emptyJsonArray>|<get-emptyJsonArray>(){}[0]
+    abstract val isNotNull // com.nfeld.jsonpathkt.json/JsonNode.isNotNull|{}isNotNull[0]
+        abstract fun <get-isNotNull>(): kotlin/Boolean // com.nfeld.jsonpathkt.json/JsonNode.isNotNull.<get-isNotNull>|<get-isNotNull>(){}[0]
+    abstract val isNull // com.nfeld.jsonpathkt.json/JsonNode.isNull|@kotlin.Any?{}isNull[0]
+        abstract fun (kotlin/Any?).<get-isNull>(): kotlin/Boolean // com.nfeld.jsonpathkt.json/JsonNode.isNull.<get-isNull>|<get-isNull>@kotlin.Any?(){}[0]
+    abstract val type // com.nfeld.jsonpathkt.json/JsonNode.type|{}type[0]
+        abstract fun <get-type>(): com.nfeld.jsonpathkt.json/JsonType // com.nfeld.jsonpathkt.json/JsonNode.type.<get-type>|<get-type>(){}[0]
+    final val element // com.nfeld.jsonpathkt.json/JsonNode.element|{}element[0]
+        final fun <get-element>(): kotlin/Any // com.nfeld.jsonpathkt.json/JsonNode.element.<get-element>|<get-element>(){}[0]
+
+    abstract fun copy(kotlin/Any = ..., kotlin/Boolean = ...): com.nfeld.jsonpathkt.json/JsonNode // com.nfeld.jsonpathkt.json/JsonNode.copy|copy(kotlin.Any;kotlin.Boolean){}[0]
+    abstract fun createJsonLiteral(kotlin/String): kotlin/Any // com.nfeld.jsonpathkt.json/JsonNode.createJsonLiteral|createJsonLiteral(kotlin.String){}[0]
+    abstract fun toJsonArray(kotlin.collections/List<kotlin/Any>): kotlin/Any // com.nfeld.jsonpathkt.json/JsonNode.toJsonArray|toJsonArray(kotlin.collections.List<kotlin.Any>){}[0]
+}
+
+final class com.nfeld.jsonpathkt.tokens/ArrayAccessorToken : com.nfeld.jsonpathkt.tokens/Token { // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken|null[0]
+    constructor <init>(kotlin/Int) // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.<init>|<init>(kotlin.Int){}[0]
+
+    final val index // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.index|{}index[0]
+        final fun <get-index>(): kotlin/Int // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.index.<get-index>|<get-index>(){}[0]
+
+    final fun component1(): kotlin/Int // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.component1|component1(){}[0]
+    final fun copy(kotlin/Int = ...): com.nfeld.jsonpathkt.tokens/ArrayAccessorToken // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.copy|copy(kotlin.Int){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.hashCode|hashCode(){}[0]
+    final fun read(com.nfeld.jsonpathkt.json/JsonNode): com.nfeld.jsonpathkt.json/JsonNode? // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.read|read(com.nfeld.jsonpathkt.json.JsonNode){}[0]
+    final fun toString(): kotlin/String // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.toString|toString(){}[0]
+
+    final object Companion { // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.Companion|null[0]
+        final fun read(com.nfeld.jsonpathkt.json/JsonNode, kotlin/Int): com.nfeld.jsonpathkt.json/JsonNode? // com.nfeld.jsonpathkt.tokens/ArrayAccessorToken.Companion.read|read(com.nfeld.jsonpathkt.json.JsonNode;kotlin.Int){}[0]
+    }
+}
+
+final class com.nfeld.jsonpathkt.tokens/ObjectAccessorToken : com.nfeld.jsonpathkt.tokens/Token { // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken|null[0]
+    constructor <init>(kotlin/String) // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.<init>|<init>(kotlin.String){}[0]
+
+    final val key // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.key|{}key[0]
+        final fun <get-key>(): kotlin/String // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.key.<get-key>|<get-key>(){}[0]
+
+    final fun component1(): kotlin/String // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.component1|component1(){}[0]
+    final fun copy(kotlin/String = ...): com.nfeld.jsonpathkt.tokens/ObjectAccessorToken // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.copy|copy(kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.hashCode|hashCode(){}[0]
+    final fun read(com.nfeld.jsonpathkt.json/JsonNode): com.nfeld.jsonpathkt.json/JsonNode? // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.read|read(com.nfeld.jsonpathkt.json.JsonNode){}[0]
+    final fun toString(): kotlin/String // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.toString|toString(){}[0]
+
+    final object Companion { // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.Companion|null[0]
+        final fun read(com.nfeld.jsonpathkt.json/JsonNode, kotlin/String): com.nfeld.jsonpathkt.json/JsonNode? // com.nfeld.jsonpathkt.tokens/ObjectAccessorToken.Companion.read|read(com.nfeld.jsonpathkt.json.JsonNode;kotlin.String){}[0]
+    }
+}
+
+final class com.nfeld.jsonpathkt/ResolutionOptions { // com.nfeld.jsonpathkt/ResolutionOptions|null[0]
+    constructor <init>(kotlin/Boolean = ...) // com.nfeld.jsonpathkt/ResolutionOptions.<init>|<init>(kotlin.Boolean){}[0]
+
+    final val wrapSingleValue // com.nfeld.jsonpathkt/ResolutionOptions.wrapSingleValue|{}wrapSingleValue[0]
+        final fun <get-wrapSingleValue>(): kotlin/Boolean // com.nfeld.jsonpathkt/ResolutionOptions.wrapSingleValue.<get-wrapSingleValue>|<get-wrapSingleValue>(){}[0]
+
+    final fun component1(): kotlin/Boolean // com.nfeld.jsonpathkt/ResolutionOptions.component1|component1(){}[0]
+    final fun copy(kotlin/Boolean = ...): com.nfeld.jsonpathkt/ResolutionOptions // com.nfeld.jsonpathkt/ResolutionOptions.copy|copy(kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.nfeld.jsonpathkt/ResolutionOptions.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.nfeld.jsonpathkt/ResolutionOptions.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.nfeld.jsonpathkt/ResolutionOptions.toString|toString(){}[0]
+
+    final object Companion { // com.nfeld.jsonpathkt/ResolutionOptions.Companion|null[0]
+        final val Default // com.nfeld.jsonpathkt/ResolutionOptions.Companion.Default|{}Default[0]
+            final fun <get-Default>(): com.nfeld.jsonpathkt/ResolutionOptions // com.nfeld.jsonpathkt/ResolutionOptions.Companion.Default.<get-Default>|<get-Default>(){}[0]
+    }
+}
+
+final value class com.nfeld.jsonpathkt/JsonPath { // com.nfeld.jsonpathkt/JsonPath|null[0]
+    final val tokenCount // com.nfeld.jsonpathkt/JsonPath.tokenCount|{}tokenCount[0]
+        final inline fun <get-tokenCount>(): kotlin/Int // com.nfeld.jsonpathkt/JsonPath.tokenCount.<get-tokenCount>|<get-tokenCount>(){}[0]
+    final val tokens // com.nfeld.jsonpathkt/JsonPath.tokens|{}tokens[0]
+        final fun <get-tokens>(): kotlin.collections/List<com.nfeld.jsonpathkt.tokens/Token> // com.nfeld.jsonpathkt/JsonPath.tokens.<get-tokens>|<get-tokens>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.nfeld.jsonpathkt/JsonPath.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.nfeld.jsonpathkt/JsonPath.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.nfeld.jsonpathkt/JsonPath.toString|toString(){}[0]
+
+    final object Companion { // com.nfeld.jsonpathkt/JsonPath.Companion|null[0]
+        final fun compile(kotlin/String): com.nfeld.jsonpathkt/JsonPath // com.nfeld.jsonpathkt/JsonPath.Companion.compile|compile(kotlin.String){}[0]
+    }
+}
+
+final object com.nfeld.jsonpathkt.tokens/WildcardToken : com.nfeld.jsonpathkt.tokens/Token { // com.nfeld.jsonpathkt.tokens/WildcardToken|null[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.nfeld.jsonpathkt.tokens/WildcardToken.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.nfeld.jsonpathkt.tokens/WildcardToken.hashCode|hashCode(){}[0]
+    final fun read(com.nfeld.jsonpathkt.json/JsonNode): com.nfeld.jsonpathkt.json/JsonNode // com.nfeld.jsonpathkt.tokens/WildcardToken.read|read(com.nfeld.jsonpathkt.json.JsonNode){}[0]
+    final fun toString(): kotlin/String // com.nfeld.jsonpathkt.tokens/WildcardToken.toString|toString(){}[0]
+}
+
+final inline fun <#A: reified kotlin/Any?> (com.nfeld.jsonpathkt/JsonPath).com.nfeld.jsonpathkt/resolveOrNull(com.nfeld.jsonpathkt.json/JsonNode, com.nfeld.jsonpathkt/ResolutionOptions = ...): #A? // com.nfeld.jsonpathkt/resolveOrNull|resolveOrNull@com.nfeld.jsonpathkt.JsonPath(com.nfeld.jsonpathkt.json.JsonNode;com.nfeld.jsonpathkt.ResolutionOptions){0§<kotlin.Any?>}[0]
