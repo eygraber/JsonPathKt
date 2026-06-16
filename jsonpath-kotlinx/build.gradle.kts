@@ -11,6 +11,11 @@ kotlin {
     project = project,
   )
 
+  // androidNativeArm32 is excluded because kotest dropped support for it in 6.2.0
+  androidNativeArm64()
+  androidNativeX64()
+  androidNativeX86()
+
   @OptIn(ExperimentalAbiValidation::class)
   abiValidation()
 
