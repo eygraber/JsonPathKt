@@ -30,7 +30,9 @@ gradleConventionsDefaults {
 
 gradleConventionsKmpDefaults {
   targets(
-    KmpTarget.AndroidNative,
+    // KmpTarget.AndroidNative is intentionally omitted here because it also pulls in
+    // androidNativeArm32, which kotest dropped support for in 6.2.0. The remaining
+    // androidNative targets are added per-module via the raw KMP DSL.
     KmpTarget.Ios,
     KmpTarget.Js,
     KmpTarget.Jvm,
