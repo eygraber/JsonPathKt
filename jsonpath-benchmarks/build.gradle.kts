@@ -39,6 +39,7 @@ kotlin {
       implementation(libs.jackson.databind)
       implementation(libs.jackson.moduleKotlin)
       implementation(libs.jayway.jsonPath)
+      implementation(libs.jsonpath4k)
       implementation(libs.slf4j)
     }
   }

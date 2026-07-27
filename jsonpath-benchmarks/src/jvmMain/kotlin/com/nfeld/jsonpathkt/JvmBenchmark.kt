@@ -8,6 +8,7 @@ import com.nfeld.jsonpathkt.jsonjava.resolvePathOrNull
 import com.nfeld.jsonpathkt.kotlinx.resolvePathOrNull
 import kotlinx.serialization.json.Json
 import org.json.JSONArray
+import at.asitplus.jsonpath.JsonPath as JsonPath4K
 import com.jayway.jsonpath.JsonPath as JaywayJsonPath
 
 fun main() {
@@ -36,10 +37,12 @@ object JvmBenchmark : Benchmark() {
     BenchmarkOp(name = "JsonPathKtKotlinx", f = kotlinxJson::resolvePathOrNull),
     BenchmarkOp(name = "JsonPathKtJsonJava", f = jsonOrgJson::resolvePathOrNull),
     BenchmarkOp(name = "JsonPath", f = { path -> jaywayContext.read<Any>(path) }),
+    BenchmarkOp(name = "JsonPath4K", f = { path -> JsonPath4K(path).query(kotlinxJson) }),
   )
 
   override fun pathCompilationBenchmarks(): List<BenchmarkOp> = listOf(
     BenchmarkOp(name = "JsonPathKt", f = JsonPath::compile),
     BenchmarkOp(name = "JsonPath", f = JaywayJsonPath::compile),
+    BenchmarkOp(name = "JsonPath4K", f = { path -> JsonPath4K(path) }),
   )
 }
