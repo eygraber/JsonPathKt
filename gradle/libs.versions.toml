@@ -9,7 +9,7 @@ jackson = "2.22.3"
 
 kotlin = "2.4.21"
 
-kotest = "6.2.5"
+kotest = "6.2.6"
 
 ktlint = "1.8.0"
 
