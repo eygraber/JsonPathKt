@@ -5,7 +5,7 @@ detekt = "2.0.0-alpha.6"
 
 dokka = "2.2.0"
 
-jackson = "2.22.3"
+jackson = "2.22.4"
 
 kotlin = "2.4.21"
 
